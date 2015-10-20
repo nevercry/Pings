@@ -11,6 +11,18 @@ project.xcworkspace
 DerivedData
 /concatenated.*
 
+# xcode noise
+build/*
+*.pbxuser
+*.mode1v3
+*~
+
+# old skool
+.svn
+
+# osx noise
+profile
+
 # Yardoc
 .yardoc
 /doc
@@ -24,10 +36,7 @@ spec/fixtures/vcr
 spec/fixtures/cache
 
 # Examples
-examples/**/Podfile.lock
-examples/Pods
-examples/**/Pods
-examples/RelativePathProject/RelativePathProject/RelativePathProject.xcodeproj
+Pods
 coverage/
 .coveralls.yml
 
