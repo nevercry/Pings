@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A9F558A1BD75AAA00175F82 /* PingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F55891BD75AAA00175F82 /* PingsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		4A9F558C1BD75F1200175F82 /* AddThingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F558B1BD75F1200175F82 /* AddThingTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		4A9F558E1BD7819C00175F82 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F558D1BD7819C00175F82 /* Host.swift */; settings = {ASSET_TAGS = (); }; };
+		4A9F55951BD7DAC400175F82 /* DirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F55941BD7DAC400175F82 /* DirectoryWatcher.m */; settings = {ASSET_TAGS = (); }; };
+		4A9F55981BD7DFD300175F82 /* FileListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F55971BD7DFD300175F82 /* FileListTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		4ABF41FF1BD6942000E836DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF41FE1BD6942000E836DC /* AppDelegate.swift */; };
-		4ABF42011BD6942000E836DC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF42001BD6942000E836DC /* ViewController.swift */; };
 		4ABF42041BD6942000E836DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ABF42021BD6942000E836DC /* Main.storyboard */; };
 		4ABF42061BD6942000E836DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ABF42051BD6942000E836DC /* Assets.xcassets */; };
 		4ABF42091BD6942000E836DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ABF42071BD6942000E836DC /* LaunchScreen.storyboard */; };
@@ -37,9 +41,15 @@
 /* Begin PBXFileReference section */
 		1632D07C18C2920DBFF66C99 /* Pods-Pings.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pings.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pings/Pods-Pings.debug.xcconfig"; sourceTree = "<group>"; };
 		3ABFBB812537539158CFE0D0 /* Pods_Pings.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pings.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A9F55891BD75AAA00175F82 /* PingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingsTableViewController.swift; sourceTree = "<group>"; };
+		4A9F558B1BD75F1200175F82 /* AddThingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddThingTableViewController.swift; sourceTree = "<group>"; };
+		4A9F558D1BD7819C00175F82 /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
+		4A9F55901BD7D9F500175F82 /* Pings-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pings-Bridging-Header.h"; sourceTree = "<group>"; };
+		4A9F55931BD7DAC400175F82 /* DirectoryWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryWatcher.h; sourceTree = "<group>"; };
+		4A9F55941BD7DAC400175F82 /* DirectoryWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryWatcher.m; sourceTree = "<group>"; };
+		4A9F55971BD7DFD300175F82 /* FileListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListTableViewController.swift; sourceTree = "<group>"; };
 		4ABF41FB1BD6942000E836DC /* Pings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ABF41FE1BD6942000E836DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4ABF42001BD6942000E836DC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4ABF42031BD6942000E836DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4ABF42051BD6942000E836DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4ABF42081BD6942000E836DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -79,6 +89,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A9F55961BD7DB4200175F82 /* ObjC */ = {
+			isa = PBXGroup;
+			children = (
+				4A9F55931BD7DAC400175F82 /* DirectoryWatcher.h */,
+				4A9F55941BD7DAC400175F82 /* DirectoryWatcher.m */,
+			);
+			name = ObjC;
+			sourceTree = "<group>";
+		};
 		4ABF41F21BD6942000E836DC = {
 			isa = PBXGroup;
 			children = (
@@ -105,11 +124,16 @@
 			isa = PBXGroup;
 			children = (
 				4ABF41FE1BD6942000E836DC /* AppDelegate.swift */,
-				4ABF42001BD6942000E836DC /* ViewController.swift */,
+				4A9F55971BD7DFD300175F82 /* FileListTableViewController.swift */,
+				4A9F55891BD75AAA00175F82 /* PingsTableViewController.swift */,
+				4A9F558D1BD7819C00175F82 /* Host.swift */,
+				4A9F558B1BD75F1200175F82 /* AddThingTableViewController.swift */,
 				4ABF42021BD6942000E836DC /* Main.storyboard */,
 				4ABF42051BD6942000E836DC /* Assets.xcassets */,
 				4ABF42071BD6942000E836DC /* LaunchScreen.storyboard */,
 				4ABF420A1BD6942000E836DC /* Info.plist */,
+				4A9F55901BD7D9F500175F82 /* Pings-Bridging-Header.h */,
+				4A9F55961BD7DB4200175F82 /* ObjC */,
 			);
 			path = Pings;
 			sourceTree = "<group>";
@@ -214,6 +238,7 @@
 		4ABF41F31BD6942000E836DC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = nevercry;
 				TargetAttributes = {
@@ -333,8 +358,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4ABF42011BD6942000E836DC /* ViewController.swift in Sources */,
 				4ABF41FF1BD6942000E836DC /* AppDelegate.swift in Sources */,
+				4A9F558C1BD75F1200175F82 /* AddThingTableViewController.swift in Sources */,
+				4A9F558A1BD75AAA00175F82 /* PingsTableViewController.swift in Sources */,
+				4A9F55981BD7DFD300175F82 /* FileListTableViewController.swift in Sources */,
+				4A9F55951BD7DAC400175F82 /* DirectoryWatcher.m in Sources */,
+				4A9F558E1BD7819C00175F82 /* Host.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,10 +506,14 @@
 			baseConfigurationReference = 1632D07C18C2920DBFF66C99 /* Pods-Pings.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Pings/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nevercry.Pings;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pings/Pings-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -489,10 +522,13 @@
 			baseConfigurationReference = 9128490206F9CE53A944E7EB /* Pods-Pings.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Pings/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nevercry.Pings;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pings/Pings-Bridging-Header.h";
 			};
 			name = Release;
 		};
