@@ -10,7 +10,7 @@ import UIKit
 import MBProgressHUD
 import CDZPinger
 
-class PingsTableViewController: UITableViewController, CDZPingerDelegate {
+class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProgressHUDDelegate {
     
     // MARK: - Model
     var fileName: String? {
@@ -22,6 +22,9 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate {
     private var serverLists = [Host]()
     private var pinger: CDZPinger?
     private var timeoutTimer: NSTimer?
+    
+    private var fastServer: Host?
+    private let spinner = MBProgressHUD.init()
     
     @IBOutlet weak var pingsBarButton: UIBarButtonItem!
     
@@ -90,12 +93,48 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate {
     }
     
     // MARK: Ping every URL in Server List 
-    var unPingedServerCount: Int = 0
+    var unPingedServerCount: Int = 0 {
+        didSet {
+            spinner.labelText = pingProgress()
+        }
+    }
     
     @IBAction func pings(sender: AnyObject) {
         unPingedServerCount = serverLists.count
-        MBProgressHUD.showHUDAddedTo(view, animated: true)
+        spinner.show(true)
         beginPingServer()
+    }
+    
+    // MARK: - Convenience Methods
+    
+    func pingProgress() -> String {
+        let serverCount = serverLists.count
+        let progress:Int
+        if serverCount > 0 {
+            progress = (serverLists.count - unPingedServerCount) * 100 / serverLists.count
+        } else {
+            progress = 0
+        }
+        
+        return "\(progress)%"
+    }
+    
+    func fastPingMs() -> Int {
+        var timeStr = fastServer!.averageTime!
+        let sufixRange = timeStr.rangeOfString(" ms")
+        timeStr.removeRange(sufixRange!)
+        return Int(timeStr)!
+    }
+    
+    func showFastServer() {
+        let alertControl = UIAlertController.init(title: "Fast Server", message: "\(fastServer!.hostName!) \(fastServer!.averageTime!)", preferredStyle: .Alert)
+        let alertAction = UIAlertAction.init(title: "Copy", style: .Default) { action in
+            let pasteboard = UIPasteboard.generalPasteboard()
+            pasteboard.string = self.fastServer!.hostName!
+            self.fastServer = nil
+        }
+        alertControl.addAction(alertAction)
+        self.presentViewController(alertControl, animated: true, completion: nil)
     }
     
     func beginPingServer() {
@@ -115,15 +154,15 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate {
     }
     
     func checkIfTimeOut(sender: AnyObject?) {
-        let host = sender as! Host
-        if host.averageTime?.characters.count == 0 {
-            host.averageTime = "timeout"
-            if unPingedServerCount == 0 {
-                MBProgressHUD.hideAllHUDsForView(view, animated: true)
-            } else {
-                unPingedServerCount--
-                beginPingServer()
-            }
+        let timer = sender as! NSTimer
+        let host = timer.userInfo as! Host
+        
+        host.averageTime = "timeout"
+        if unPingedServerCount == 0 {
+            spinner.hide(true)
+        } else {
+            unPingedServerCount--
+            beginPingServer()
         }
     }
     
@@ -132,7 +171,20 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        spinner.delegate = self
+        self.view.addSubview(spinner)
         updateUI()
+    }
+    
+    // MARK: - MBProgressHUDDelegate
+    func hudWasHidden(hud: MBProgressHUD!) {
+        if fastServer != nil {
+            if let fastIndex = serverLists.indexOf({$0 === fastServer!}) {
+                let indexPath = NSIndexPath.init(forRow: fastIndex, inSection: 0)
+                tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .Middle)
+            }
+            showFastServer()
+        }
     }
     
     // MARK: - CDPingerDelegate 
@@ -148,13 +200,23 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate {
         let avgmSec = seconds * 1000
         let formatStr = String(format: "%.f", avgmSec)
         host.averageTime = "\(formatStr) ms"
+        
+        if fastServer != nil {
+            if Int(avgmSec) < fastPingMs() {
+                fastServer = host
+            }
+        } else {
+            fastServer = host
+        }
+        
         pinger.stopPinging()
         
         unPingedServerCount--
+        
         if unPingedServerCount > 0 {
             beginPingServer()
         } else {
-            MBProgressHUD.hideAllHUDsForView(view, animated: true)
+            spinner.hide(true)
             tableView.reloadData()
             updateUI()
         }
@@ -177,7 +239,7 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate {
         if unPingedServerCount > 0 {
             beginPingServer()
         } else {
-            MBProgressHUD.hideAllHUDsForView(view, animated: true)
+            spinner.hide(true)
             tableView.reloadData()
             updateUI()
         }
@@ -198,9 +260,10 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath)
         
-        cell.textLabel?.text = serverLists[indexPath.row].hostName
-        cell.detailTextLabel?.text = serverLists[indexPath.row].averageTime
-
+        let host = serverLists[indexPath.row]
+        cell.textLabel?.text = host.hostName
+        cell.detailTextLabel?.text = host.averageTime
+        
         return cell
     }
     
