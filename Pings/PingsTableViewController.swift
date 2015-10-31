@@ -48,7 +48,7 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
     }
     
     func readfile(fileName: String) {
-        let fileURL = NSURL(fileURLWithPath: AppDelegate().applicationDocumentsDirectory()).URLByAppendingPathComponent(fileName)
+        let fileURL = NSURL(fileURLWithPath: AppDelegate().applicationDocumentsDirectory()).URLByAppendingPathComponent(fileName + ".conf")
         let fileText = try! String(contentsOfURL: fileURL, encoding: NSUTF8StringEncoding)
         
         if fileText.characters.count > 0 {
