@@ -26,6 +26,8 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
     private var fastServer: Host?
     private let spinner = MBProgressHUD.init()
     
+    var isFromShortCut = false
+    
     @IBOutlet weak var pingsBarButton: UIBarButtonItem!
     
     
@@ -84,6 +86,19 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
         }
     }
     
+    func removeServerAtIndex(index: Int) {
+        
+        serverLists.removeAtIndex(index)
+        
+        let serverS = serverLists.map({ $0.hostName! }).joinWithSeparator("\n") + "\n"
+        
+        let fileURL = NSURL(fileURLWithPath: AppDelegate().applicationDocumentsDirectory()).URLByAppendingPathComponent(fileName! + ".conf")
+        
+        try! serverS.writeToURL(fileURL, atomically: true, encoding: NSUTF8StringEncoding)
+        
+        
+    }
+    
     func updateUI() {
         if serverLists.count > 0 {
             pingsBarButton.enabled = true
@@ -100,9 +115,11 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
     }
     
     @IBAction func pings(sender: AnyObject) {
-        unPingedServerCount = serverLists.count
-        spinner.show(true)
-        beginPingServer()
+        if serverLists.count > 0 {
+            unPingedServerCount = serverLists.count
+            spinner.show(true)
+            beginPingServer()
+        }
     }
     
     // MARK: - Convenience Methods
@@ -174,6 +191,14 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
         spinner.delegate = self
         self.view.addSubview(spinner)
         updateUI()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if isFromShortCut {
+            pings(self)
+        }
     }
     
     // MARK: - MBProgressHUDDelegate
@@ -276,17 +301,16 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
     }
     */
 
-    /*
-    // Override to support editing the table view.
+    
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
+            removeServerAtIndex(indexPath.row)
+            
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.

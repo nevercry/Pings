@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A9F558A1BD75AAA00175F82 /* PingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F55891BD75AAA00175F82 /* PingsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		4A9F558C1BD75F1200175F82 /* AddThingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F558B1BD75F1200175F82 /* AddThingTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		4A9F558E1BD7819C00175F82 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F558D1BD7819C00175F82 /* Host.swift */; settings = {ASSET_TAGS = (); }; };
-		4A9F55951BD7DAC400175F82 /* DirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F55941BD7DAC400175F82 /* DirectoryWatcher.m */; settings = {ASSET_TAGS = (); }; };
-		4A9F55981BD7DFD300175F82 /* FileListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F55971BD7DFD300175F82 /* FileListTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		4A9F558A1BD75AAA00175F82 /* PingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F55891BD75AAA00175F82 /* PingsTableViewController.swift */; };
+		4A9F558C1BD75F1200175F82 /* AddThingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F558B1BD75F1200175F82 /* AddThingTableViewController.swift */; };
+		4A9F558E1BD7819C00175F82 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F558D1BD7819C00175F82 /* Host.swift */; };
+		4A9F55951BD7DAC400175F82 /* DirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F55941BD7DAC400175F82 /* DirectoryWatcher.m */; };
+		4A9F55981BD7DFD300175F82 /* FileListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F55971BD7DFD300175F82 /* FileListTableViewController.swift */; };
 		4ABF41FF1BD6942000E836DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF41FE1BD6942000E836DC /* AppDelegate.swift */; };
 		4ABF42041BD6942000E836DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ABF42021BD6942000E836DC /* Main.storyboard */; };
 		4ABF42061BD6942000E836DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ABF42051BD6942000E836DC /* Assets.xcassets */; };
@@ -508,7 +508,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Pings/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nevercry.Pings;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -524,7 +524,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Pings/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nevercry.Pings;
 				PRODUCT_NAME = "$(TARGET_NAME)";

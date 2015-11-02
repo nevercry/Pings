@@ -10,11 +10,12 @@ import UIKit
 
 class FileListTableViewController: UITableViewController, DirectoryWatcherDelegate {
     
+    var editBarButton: UIBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .Edit, target: nil, action: "editFileList:")
+    
     var fileList = [String]()
     var docWatcher: DirectoryWatcher?
     
-    var myObserver: AnyObject?
-    
+    var myObserver: NSObjectProtocol?
     
     private struct Constants {
         static let FileExtension = "conf"
@@ -23,11 +24,28 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         static let SegueIdentifier = "Show Servers"
     }
     
+    // MARK: - ShortCut Methods 
+    
+    var recentNotFirstFileIndex:Int? {
+        willSet {
+            
+        }
+        didSet {
+            let shortcut1 = UIMutableApplicationShortcutItem(type: AppDelegate.ShortcutIdentifier.Second.type, localizedTitle: "Ping Recent", localizedSubtitle: "\(fileList[recentNotFirstFileIndex!])", icon: UIApplicationShortcutIcon(type: .Time), userInfo: ["applicationShortcutUserInfoKey": recentNotFirstFileIndex!])
+            
+            // Update the application providing the initial 'dynamic' shortcut items.
+            UIApplication.sharedApplication().shortcutItems = [shortcut1]
+        }
+    }
+    
 
     // MARK: - View LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        editBarButton.target = self
+        self.navigationItem.rightBarButtonItem = editBarButton
         
         let watchPath = AppDelegate().applicationDocumentsDirectory()
         
@@ -41,20 +59,19 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         let queue = NSOperationQueue.mainQueue()
         let appDelegate = UIApplication.sharedApplication().delegate
         
-        myObserver = center.addObserverForName(PingsURL.Notification, object: appDelegate, queue: queue) { notification in
+        myObserver = center.addObserverForName(PingsURL.Notification, object: appDelegate, queue: queue) { [weak self] notification  in
+            guard let strongSelf = self else { return }
             if let url = notification.userInfo?[PingsURL.Key] as? NSURL {
-                
                 let defaultManager = NSFileManager.defaultManager()
                 let documentsDirectoryPath = AppDelegate().applicationDocumentsDirectory()
                 let moveFileURL = NSURL(fileURLWithPath: documentsDirectoryPath).URLByAppendingPathComponent(url.lastPathComponent!)
                 let srcPath = url.path!
                 try! defaultManager.moveItemAtPath(srcPath, toPath: moveFileURL.path!)
                 
-                
                 var fileName = url.lastPathComponent!
                 let suffixRange = fileName.rangeOfString(".conf")!
                 fileName.removeRange(suffixRange)
-                self.performSegueWithIdentifier(Constants.SegueIdentifier, sender: fileName)
+                strongSelf.performSegueWithIdentifier(Constants.SegueIdentifier, sender: fileName)
             }
         }
     }
@@ -62,10 +79,28 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         let center = NSNotificationCenter.defaultCenter()
-        let appDelegate = UIApplication.sharedApplication().delegate
-        center.removeObserver(myObserver!, name: PingsURL.Notification, object: appDelegate)
+        
+        if myObserver != nil {
+            center.removeObserver(myObserver!)
+        }
     }
 
+    func editFileList(var sender: UIBarButtonItem) {
+        tableView.setEditing(!tableView.editing, animated: true)
+        let sysItem = tableView.editing ? UIBarButtonSystemItem.Done : .Edit
+        sender = UIBarButtonItem.init(barButtonSystemItem: sysItem, target: self, action: "editFileList:")
+        self.navigationItem.rightBarButtonItem = sender
+    }
+    
+    func remveFileAtIndex(index: Int) {
+        let fileName = fileList[index]
+        let documentsDirectoryPath = AppDelegate().applicationDocumentsDirectory()
+        let defaultManager = NSFileManager.defaultManager()
+        let fileURL = NSURL.fileURLWithPath(documentsDirectoryPath).URLByAppendingPathComponent(fileName + ".\(Constants.FileExtension)")
+        try! defaultManager.removeItemAtURL(fileURL)
+        fileList.removeAtIndex(index)
+    }
+    
     // MARK: - DirectoryWatcherDelegate 
     
     func directoryDidChange(folderWatcher: DirectoryWatcher!) {
@@ -87,7 +122,9 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
                 var isDirectory: ObjCBool = false
                 defaultManager.fileExistsAtPath(filePath, isDirectory: &isDirectory)
                 if (!(isDirectory && curFileName == "Inbox")) {
-                    fileList.append(curFileName)
+                    let suffixRange = curFileName.rangeOfString(".conf")
+                    let nosuffixFileName = curFileName.substringToIndex(suffixRange!.startIndex)
+                    fileList.append(nosuffixFileName)
                 } else {
                     let inboxContents = try! defaultManager.contentsOfDirectoryAtPath(filePath)
                     if inboxContents.count > 0 {
@@ -119,12 +156,24 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellReuseIdentifier, forIndexPath: indexPath)
-        var fileName = fileList[indexPath.row]
-        let extensionSuffixRange = fileName.rangeOfString(".conf")
-        fileName.removeRange(extensionSuffixRange!)
-        cell.textLabel!.text = fileName
+        cell.textLabel!.text = fileList[indexPath.row]
 
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if indexPath.row == 0 {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            remveFileAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
     }
     
 
@@ -139,6 +188,15 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
                 if let ptvc = segue.destinationViewController as? PingsTableViewController {
                     ptvc.fileName = fileName
                 }
+                
+                let index = tableView.indexPathForCell(cell)
+                
+                guard let noFirstIndex = index?.row where index?.row != 0 else {
+                    return
+                }
+                
+                recentNotFirstFileIndex = noFirstIndex
+                
             } else if let fileName = sender as? String {
                 if let ptvc = segue.destinationViewController as? PingsTableViewController {
                     ptvc.fileName = fileName
