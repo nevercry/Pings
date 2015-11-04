@@ -114,7 +114,6 @@
                     <navigationItem key="navigationItem" title="Add" id="QGJ-nJ-57C">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="PFP-hq-uqk">
                             <connections>
-                                <action selector="done:" destination="JvW-u0-43V" id="P22-xM-Ahu"/>
                                 <segue destination="1c3-Ne-WaH" kind="unwind" unwindAction="unwindToPingsForAddDone:" id="PGq-M3-b6Q"/>
                             </connections>
                         </barButtonItem>

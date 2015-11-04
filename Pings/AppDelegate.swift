@@ -176,6 +176,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         for inboxFileName in inboxContents {
                             let moveFileURL = NSURL(fileURLWithPath: documentsDirectoryPath).URLByAppendingPathComponent(inboxFileName)
                             let srcPath = fileURL.URLByAppendingPathComponent(inboxFileName).path!
+                            
+                            // Check File isExist
+                            if defaultManager.fileExistsAtPath(moveFileURL.path!) {
+                                try! defaultManager.removeItemAtURL(moveFileURL)
+                            }
+                            
                             try! defaultManager.moveItemAtPath(srcPath, toPath: moveFileURL.path!)
                             let suffixRange = inboxFileName.rangeOfString("." + Constants.FileExtension)
                             let nosuffixFileName = inboxFileName.substringToIndex(suffixRange!.startIndex)

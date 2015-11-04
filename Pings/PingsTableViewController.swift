@@ -69,7 +69,7 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
     
     func savefile(content: String) {
         let dir:NSURL = NSURL(fileURLWithPath: AppDelegate().applicationDocumentsDirectory())
-        let fileurl =  dir.URLByAppendingPathComponent(fileName!)
+        let fileurl =  dir.URLByAppendingPathComponent(fileName! + ".conf")
         
         let string = "\(content)\n"
         let data = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
@@ -177,6 +177,7 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
         host.averageTime = "timeout"
         if unPingedServerCount == 0 {
             spinner.hide(true)
+            tableView.reloadData()
         } else {
             unPingedServerCount--
             beginPingServer()

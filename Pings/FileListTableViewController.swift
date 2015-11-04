@@ -64,8 +64,15 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
             if let url = notification.userInfo?[PingsURL.Key] as? NSURL {
                 let defaultManager = NSFileManager.defaultManager()
                 let documentsDirectoryPath = AppDelegate().applicationDocumentsDirectory()
+                
                 let moveFileURL = NSURL(fileURLWithPath: documentsDirectoryPath).URLByAppendingPathComponent(url.lastPathComponent!)
                 let srcPath = url.path!
+                
+                // Check File isExist
+                if defaultManager.fileExistsAtPath(moveFileURL.path!) {
+                    try! defaultManager.removeItemAtURL(moveFileURL)
+                }
+                
                 try! defaultManager.moveItemAtPath(srcPath, toPath: moveFileURL.path!)
                 
                 var fileName = url.lastPathComponent!
@@ -131,6 +138,11 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
                         for inboxFileName in inboxContents {
                             let moveFileURL = NSURL(fileURLWithPath: documentsDirectoryPath).URLByAppendingPathComponent(inboxFileName)
                             let srcPath = fileURL.URLByAppendingPathComponent(inboxFileName).path!
+                            
+                            // Check File isExist
+                            if defaultManager.fileExistsAtPath(moveFileURL.path!) {
+                                try! defaultManager.removeItemAtURL(moveFileURL)
+                            }
                             try! defaultManager.moveItemAtPath(srcPath, toPath: moveFileURL.path!)
                         }
                     } 

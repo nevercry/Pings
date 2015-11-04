@@ -28,8 +28,9 @@ class AddThingTableViewController: UITableViewController, UITextFieldDelegate {
     func observeTextFields() {
         let center = NSNotificationCenter.defaultCenter()
         let queue = NSOperationQueue.mainQueue()
-        tfObserver = center.addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: queue) { notification in
-            self.thing = self.textField.text
+        tfObserver = center.addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: queue) { [weak self] notification in
+            guard let strongSelf = self else { return }
+            strongSelf.thing = strongSelf.textField.text
         }
     }
     
