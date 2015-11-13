@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A9C89481BF61A0500D4EF6A /* PingsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C89471BF61A0500D4EF6A /* PingsConstants.swift */; };
 		4A9F558A1BD75AAA00175F82 /* PingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F55891BD75AAA00175F82 /* PingsTableViewController.swift */; };
 		4A9F558C1BD75F1200175F82 /* AddThingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F558B1BD75F1200175F82 /* AddThingTableViewController.swift */; };
 		4A9F558E1BD7819C00175F82 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F558D1BD7819C00175F82 /* Host.swift */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		1632D07C18C2920DBFF66C99 /* Pods-Pings.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pings.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pings/Pods-Pings.debug.xcconfig"; sourceTree = "<group>"; };
 		3ABFBB812537539158CFE0D0 /* Pods_Pings.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pings.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A9C89471BF61A0500D4EF6A /* PingsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingsConstants.swift; sourceTree = "<group>"; };
 		4A9F55891BD75AAA00175F82 /* PingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingsTableViewController.swift; sourceTree = "<group>"; };
 		4A9F558B1BD75F1200175F82 /* AddThingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddThingTableViewController.swift; sourceTree = "<group>"; };
 		4A9F558D1BD7819C00175F82 /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				4ABF41FE1BD6942000E836DC /* AppDelegate.swift */,
+				4A9C89471BF61A0500D4EF6A /* PingsConstants.swift */,
 				4A9F55971BD7DFD300175F82 /* FileListTableViewController.swift */,
 				4A9F55891BD75AAA00175F82 /* PingsTableViewController.swift */,
 				4A9F558D1BD7819C00175F82 /* Host.swift */,
@@ -364,6 +367,7 @@
 				4A9F55981BD7DFD300175F82 /* FileListTableViewController.swift in Sources */,
 				4A9F55951BD7DAC400175F82 /* DirectoryWatcher.m in Sources */,
 				4A9F558E1BD7819C00175F82 /* Host.swift in Sources */,
+				4A9C89481BF61A0500D4EF6A /* PingsConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

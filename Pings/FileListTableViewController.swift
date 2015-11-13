@@ -18,27 +18,10 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     var myObserver: NSObjectProtocol?
     
     private struct Constants {
-        static let FileExtension = "conf"
-        static let DefaultFileName = "DEFAULT"
         static let CellReuseIdentifier = "File Cell"
         static let SegueIdentifier = "Show Servers"
     }
     
-    // MARK: - ShortCut Methods 
-    
-    var recentNotFirstFileIndex:Int? {
-        willSet {
-            
-        }
-        didSet {
-            let shortcut1 = UIMutableApplicationShortcutItem(type: AppDelegate.ShortcutIdentifier.Second.type, localizedTitle: "Ping Recent", localizedSubtitle: "\(fileList[recentNotFirstFileIndex!])", icon: UIApplicationShortcutIcon(type: .Time), userInfo: ["applicationShortcutUserInfoKey": recentNotFirstFileIndex!])
-            
-            // Update the application providing the initial 'dynamic' shortcut items.
-            UIApplication.sharedApplication().shortcutItems = [shortcut1]
-        }
-    }
-    
-
     // MARK: - View LifeCycle
     
     override func viewDidLoad() {
@@ -55,13 +38,17 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         let center = NSNotificationCenter.defaultCenter()
         let queue = NSOperationQueue.mainQueue()
         let appDelegate = UIApplication.sharedApplication().delegate
         
-        myObserver = center.addObserverForName(PingsURL.Notification, object: appDelegate, queue: queue) { [weak self] notification  in
+        myObserver = center.addObserverForName(YSFGlobalConstants.Strings.PingsURLNotification, object: appDelegate, queue: queue) { [weak self] notification  in
             guard let strongSelf = self else { return }
-            if let url = notification.userInfo?[PingsURL.Key] as? NSURL {
+            if let url = notification.userInfo?[YSFGlobalConstants.Strings.PingsURLKey] as? NSURL {
                 let defaultManager = NSFileManager.defaultManager()
                 let documentsDirectoryPath = AppDelegate().applicationDocumentsDirectory()
                 
@@ -91,35 +78,55 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
             center.removeObserver(myObserver!)
         }
     }
+    
+    // MARK: - Table view data source
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return fileList.count
+    }
+    
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellReuseIdentifier, forIndexPath: indexPath)
+        cell.textLabel!.text = fileList[indexPath.row]
+        
+        return cell
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+}
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            remveFileAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
+    }
 
-    func editFileList(var sender: UIBarButtonItem) {
-        tableView.setEditing(!tableView.editing, animated: true)
-        let sysItem = tableView.editing ? UIBarButtonSystemItem.Done : .Edit
-        sender = UIBarButtonItem.init(barButtonSystemItem: sysItem, target: self, action: "editFileList:")
-        self.navigationItem.rightBarButtonItem = sender
-    }
     
-    func remveFileAtIndex(index: Int) {
-        let fileName = fileList[index]
-        let documentsDirectoryPath = AppDelegate().applicationDocumentsDirectory()
-        let defaultManager = NSFileManager.defaultManager()
-        let fileURL = NSURL.fileURLWithPath(documentsDirectoryPath).URLByAppendingPathComponent(fileName + ".\(Constants.FileExtension)")
-        try! defaultManager.removeItemAtURL(fileURL)
-        fileList.removeAtIndex(index)
-    }
-    
-    // MARK: - DirectoryWatcherDelegate 
+    // MARK: - DirectoryWatcherDelegate
     
     func directoryDidChange(folderWatcher: DirectoryWatcher!) {
         fileList.removeAll()
         let documentsDirectoryPath = AppDelegate().applicationDocumentsDirectory()
         let defaultManager = NSFileManager.defaultManager()
-    
+        
         let documentsDirectoryContents = try! defaultManager.contentsOfDirectoryAtPath(documentsDirectoryPath)
         
         if documentsDirectoryContents.count == 0 {
-            let defaultConfPathURL = NSURL(fileURLWithPath: documentsDirectoryPath).URLByAppendingPathComponent("\(Constants.DefaultFileName).\(Constants.FileExtension)")
-            defaultManager.createFileAtPath(defaultConfPathURL.path!, contents: nil, attributes: nil)
+            // create default file only once
+            if !NSUserDefaults.standardUserDefaults().boolForKey(YSFGlobalConstants.Strings.PingsHasCreateDefaultFileOnceKey) {
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: YSFGlobalConstants.Strings.PingsHasCreateDefaultFileOnceKey)
+                NSUserDefaults.standardUserDefaults().synchronize()
+                let defaultConfPathURL = NSURL(fileURLWithPath: documentsDirectoryPath).URLByAppendingPathComponent("\(YSFGlobalConstants.Strings.DefaultFileName)" + "." + "\(YSFGlobalConstants.Strings.FileExtension)")
+                defaultManager.createFileAtPath(defaultConfPathURL.path!, contents: nil, attributes: nil)
+                
+            }
         } else {
             
             for curFileName in documentsDirectoryContents {
@@ -145,7 +152,7 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
                             }
                             try! defaultManager.moveItemAtPath(srcPath, toPath: moveFileURL.path!)
                         }
-                    } 
+                    }
                 }
             }
         }
@@ -153,46 +160,29 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         tableView.reloadData()
     }
     
+    // MARK: - event response
     
-
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fileList.count
+    func editFileList(var sender: UIBarButtonItem) {
+        tableView.setEditing(!tableView.editing, animated: true)
+        let sysItem = tableView.editing ? UIBarButtonSystemItem.Done : .Edit
+        sender = UIBarButtonItem.init(barButtonSystemItem: sysItem, target: self, action: "editFileList:")
+        self.navigationItem.rightBarButtonItem = sender
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellReuseIdentifier, forIndexPath: indexPath)
-        cell.textLabel!.text = fileList[indexPath.row]
-
-        return cell
+    // MARK: - private methods
+    
+    func remveFileAtIndex(index: Int) {
+        let fileName = fileList[index]
+        let documentsDirectoryPath = AppDelegate().applicationDocumentsDirectory()
+        let defaultManager = NSFileManager.defaultManager()
+        let fileURL = NSURL.fileURLWithPath(documentsDirectoryPath).URLByAppendingPathComponent(fileName + "." + "\(YSFGlobalConstants.Strings.FileExtension)")
+        try! defaultManager.removeItemAtURL(fileURL)
+        fileList.removeAtIndex(index)
     }
-    
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if indexPath.row == 0 {
-            return false
-        } else {
-            return true
-        }
-    }
-    
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            remveFileAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        }
-    }
-    
-
-    
     
     // MARK: - Navigation
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == Constants.SegueIdentifier {
             if let cell = sender as? UITableViewCell {
@@ -216,6 +206,21 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
             }
         }
     }
+    
+    // MARK: - getters and settes
+    
+    var recentNotFirstFileIndex:Int? {
+        willSet {
+            
+        }
+        didSet {
+            let shortcut1 = UIMutableApplicationShortcutItem(type: AppDelegate.ShortcutIdentifier.Second.type, localizedTitle: "Ping Recent", localizedSubtitle: "\(fileList[recentNotFirstFileIndex!])", icon: UIApplicationShortcutIcon(type: .Time), userInfo: ["applicationShortcutUserInfoKey": recentNotFirstFileIndex!])
+            
+            // Update the application providing the initial 'dynamic' shortcut items.
+            UIApplication.sharedApplication().shortcutItems = [shortcut1]
+        }
+    }
+    
     
 
 }

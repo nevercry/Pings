@@ -8,19 +8,6 @@
 
 import UIKit
 
-struct PingsURL {
-    static let Notification = "PingsURL Radio Station"
-    static let Key = "PingsURL URL Key"
-    static let ShortCutNotification = "PingsURL ShortCut Radio Station"
-    static let ShortCutKey = "PingsURL ShortCut Key"
-}
-
-struct Constants {
-    static let FileExtension = "conf"
-    static let DefaultFileName = "DEFAULT"
-}
-
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Type
@@ -137,7 +124,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
         let center = NSNotificationCenter.defaultCenter()
-        let notification = NSNotification(name: PingsURL.Notification, object: self, userInfo: [PingsURL.Key:url])
+        let notification = NSNotification(name: YSFGlobalConstants.Strings.PingsURLNotification, object: self, userInfo: [YSFGlobalConstants.Strings.PingsURLKey:url])
         center.postNotification(notification)
         return true
     }
@@ -155,9 +142,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let documentsDirectoryContents = try! defaultManager.contentsOfDirectoryAtPath(documentsDirectoryPath)
         
         if documentsDirectoryContents.count == 0 {
-            let defaultConfPathURL = NSURL(fileURLWithPath: documentsDirectoryPath).URLByAppendingPathComponent("\(Constants.DefaultFileName).\(Constants.FileExtension)")
+            let defaultConfPathURL = NSURL(fileURLWithPath: documentsDirectoryPath).URLByAppendingPathComponent("\(YSFGlobalConstants.Strings.DefaultFileName).\(YSFGlobalConstants.Strings.FileExtension)")
             defaultManager.createFileAtPath(defaultConfPathURL.path!, contents: nil, attributes: nil)
-            return [Constants.DefaultFileName]
+            return [YSFGlobalConstants.Strings.DefaultFileName]
         } else {
             var fileList = [String]()
             for curFileName in documentsDirectoryContents {
@@ -167,7 +154,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 defaultManager.fileExistsAtPath(filePath, isDirectory: &isDirectory)
                 
                 if (!(isDirectory && curFileName == "Inbox")) {
-                    let suffixRange = curFileName.rangeOfString("." + Constants.FileExtension)
+                    let suffixRange = curFileName.rangeOfString("." + YSFGlobalConstants.Strings.FileExtension)
                     let nosuffixFileName = curFileName.substringToIndex(suffixRange!.startIndex)
                     fileList.append(nosuffixFileName)
                 } else {
@@ -183,7 +170,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             }
                             
                             try! defaultManager.moveItemAtPath(srcPath, toPath: moveFileURL.path!)
-                            let suffixRange = inboxFileName.rangeOfString("." + Constants.FileExtension)
+                            let suffixRange = inboxFileName.rangeOfString("." + YSFGlobalConstants.Strings.FileExtension)
                             let nosuffixFileName = inboxFileName.substringToIndex(suffixRange!.startIndex)
                             fileList.append(nosuffixFileName)
                         }
@@ -193,9 +180,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return fileList
         }
     }
-    
-    
-    
 }
 
 extension UIViewController {
