@@ -65,21 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         if handled == true {
-            guard let currenVC = window!.rootViewController?.contentViewController else { return false }
-            
-            let storyboard = currenVC.storyboard
-            
-            var fileListVC: FileListTableViewController
-            if let vc = currenVC as? FileListTableViewController {
-                fileListVC = vc
-            } else {
-                fileListVC = currenVC.navigationController?.viewControllers.first as! FileListTableViewController
-            }
-            
-            let pingsTVC = storyboard?.instantiateViewControllerWithIdentifier("PingsTableViewController") as! PingsTableViewController
-            pingsTVC.fileName = applicationFileList()[shortCutFileIndex!]
-            pingsTVC.isFromShortCut = true
-            fileListVC.navigationController?.setViewControllers([fileListVC,pingsTVC], animated: false)
+            pingFileAt(shortCutFileIndex!)
         }
         
         return handled
@@ -110,24 +96,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return shouldPerformAdditionalDelegateHandling
     }
     
-    /*
-    Called when the user activates your application by selecting a shortcut on the home screen, except when
-    application(_:,willFinishLaunchingWithOptions:) or application(_:didFinishLaunchingWithOptions) returns `false`.
-    You should handle the shortcut in those callbacks and return `false` if possible. In that case, this
-    callback is used if your application is already launched in the background.
-    */
+    
     func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: Bool -> Void) {
         let handledShortCutItem = handleShortCutItem(shortcutItem)
         
         completionHandler(handledShortCutItem)
     }
     
-    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
-        let center = NSNotificationCenter.defaultCenter()
-        let notification = NSNotification(name: YSFGlobalConstants.Strings.PingsURLNotification, object: self, userInfo: [YSFGlobalConstants.Strings.PingsURLKey:url])
-        center.postNotification(notification)
+    
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        let urlScheme = url.scheme
+            
+        if urlScheme == "pings" {
+            let resourceSpecifier = url.resourceSpecifier
+            
+            if resourceSpecifier == "/pingRecent" {
+            
+                if let mutableShortCutItem = UIApplication.sharedApplication().shortcutItems?.last {
+                    let userInfoDic = mutableShortCutItem.userInfo as! [String: Int]
+                    let recentFileIndex = userInfoDic[AppDelegate.applicationShortcutUserInfoKey]
+                    pingFileAt(recentFileIndex!)
+                }
+                
+                return true
+            }
+            
+        } else {
+            let center = NSNotificationCenter.defaultCenter()
+            let notification = NSNotification(name: YSFGlobalConstants.Strings.PingsURLNotification, object: self, userInfo: [YSFGlobalConstants.Strings.PingsURLKey:url])
+            center.postNotification(notification)
+        }
+        
         return true
     }
+    
+    // MARK: - private methods
+    
+    func pingFileAt(index: Int) {
+        guard let currenVC = window!.rootViewController?.contentViewController else { return }
+        
+        guard index < applicationFileList().count else { return }
+        
+        let storyboard = currenVC.storyboard
+        
+        var fileListVC: FileListTableViewController
+        if let vc = currenVC as? FileListTableViewController {
+            fileListVC = vc
+        } else {
+            fileListVC = currenVC.navigationController?.viewControllers.first as! FileListTableViewController
+        }
+        
+        let pingsTVC = storyboard?.instantiateViewControllerWithIdentifier("PingsTableViewController") as! PingsTableViewController
+        
+        pingsTVC.fileName = applicationFileList()[index]
+        pingsTVC.isFromShortCut = true
+        fileListVC.navigationController?.setViewControllers([fileListVC,pingsTVC], animated: false)
+    }
+    
+    
     
     // MARK: - File system support
     

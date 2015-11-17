@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4A9C89481BF61A0500D4EF6A /* PingsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C89471BF61A0500D4EF6A /* PingsConstants.swift */; };
+		4A9C89651BFA0D7300D4EF6A /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9C89641BFA0D7300D4EF6A /* NotificationCenter.framework */; };
+		4A9C89681BFA0D7300D4EF6A /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C89671BFA0D7300D4EF6A /* TodayViewController.swift */; };
+		4A9C896B1BFA0D7300D4EF6A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A9C89691BFA0D7300D4EF6A /* MainInterface.storyboard */; };
+		4A9C896F1BFA0D7300D4EF6A /* Pings Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4A9C89631BFA0D7300D4EF6A /* Pings Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4A9F558A1BD75AAA00175F82 /* PingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F55891BD75AAA00175F82 /* PingsTableViewController.swift */; };
 		4A9F558C1BD75F1200175F82 /* AddThingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F558B1BD75F1200175F82 /* AddThingTableViewController.swift */; };
 		4A9F558E1BD7819C00175F82 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F558D1BD7819C00175F82 /* Host.swift */; };
@@ -23,6 +27,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4A9C896D1BFA0D7300D4EF6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4ABF41F31BD6942000E836DC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4A9C89621BFA0D7300D4EF6A;
+			remoteInfo = "Pings Widget";
+		};
 		4ABF42101BD6942000E836DC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4ABF41F31BD6942000E836DC /* Project object */;
@@ -39,10 +50,29 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4A9C89731BFA0D7300D4EF6A /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4A9C896F1BFA0D7300D4EF6A /* Pings Widget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1632D07C18C2920DBFF66C99 /* Pods-Pings.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pings.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pings/Pods-Pings.debug.xcconfig"; sourceTree = "<group>"; };
 		3ABFBB812537539158CFE0D0 /* Pods_Pings.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pings.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A9C89471BF61A0500D4EF6A /* PingsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingsConstants.swift; sourceTree = "<group>"; };
+		4A9C89631BFA0D7300D4EF6A /* Pings Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pings Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A9C89641BFA0D7300D4EF6A /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		4A9C89671BFA0D7300D4EF6A /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		4A9C896A1BFA0D7300D4EF6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		4A9C896C1BFA0D7300D4EF6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A9F55891BD75AAA00175F82 /* PingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingsTableViewController.swift; sourceTree = "<group>"; };
 		4A9F558B1BD75F1200175F82 /* AddThingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddThingTableViewController.swift; sourceTree = "<group>"; };
 		4A9F558D1BD7819C00175F82 /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
@@ -66,6 +96,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4A9C89601BFA0D7300D4EF6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A9C89651BFA0D7300D4EF6A /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4ABF41F81BD6942000E836DC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -91,6 +129,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A9C89661BFA0D7300D4EF6A /* Pings Widget */ = {
+			isa = PBXGroup;
+			children = (
+				4A9C89671BFA0D7300D4EF6A /* TodayViewController.swift */,
+				4A9C89691BFA0D7300D4EF6A /* MainInterface.storyboard */,
+				4A9C896C1BFA0D7300D4EF6A /* Info.plist */,
+			);
+			path = "Pings Widget";
+			sourceTree = "<group>";
+		};
 		4A9F55961BD7DB4200175F82 /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +154,7 @@
 				4ABF41FD1BD6942000E836DC /* Pings */,
 				4ABF42121BD6942000E836DC /* PingsTests */,
 				4ABF421D1BD6942000E836DC /* PingsUITests */,
+				4A9C89661BFA0D7300D4EF6A /* Pings Widget */,
 				4ABF41FC1BD6942000E836DC /* Products */,
 				7D91CCF18D7F7B3E22EB6DB6 /* Pods */,
 				85FE06F751782006530C413F /* Frameworks */,
@@ -118,6 +167,7 @@
 				4ABF41FB1BD6942000E836DC /* Pings.app */,
 				4ABF420F1BD6942000E836DC /* PingsTests.xctest */,
 				4ABF421A1BD6942000E836DC /* PingsUITests.xctest */,
+				4A9C89631BFA0D7300D4EF6A /* Pings Widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -172,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				3ABFBB812537539158CFE0D0 /* Pods_Pings.framework */,
+				4A9C89641BFA0D7300D4EF6A /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -179,6 +230,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4A9C89621BFA0D7300D4EF6A /* Pings Widget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A9C89721BFA0D7300D4EF6A /* Build configuration list for PBXNativeTarget "Pings Widget" */;
+			buildPhases = (
+				4A9C895F1BFA0D7300D4EF6A /* Sources */,
+				4A9C89601BFA0D7300D4EF6A /* Frameworks */,
+				4A9C89611BFA0D7300D4EF6A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pings Widget";
+			productName = "Pings Widget";
+			productReference = 4A9C89631BFA0D7300D4EF6A /* Pings Widget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		4ABF41FA1BD6942000E836DC /* Pings */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4ABF42231BD6942000E836DC /* Build configuration list for PBXNativeTarget "Pings" */;
@@ -189,10 +257,12 @@
 				4ABF41F91BD6942000E836DC /* Resources */,
 				579A45D9C663EFFAC123AA4F /* Embed Pods Frameworks */,
 				2CC63B5A38017E5B3D9E8581 /* Copy Pods Resources */,
+				4A9C89731BFA0D7300D4EF6A /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4A9C896E1BFA0D7300D4EF6A /* PBXTargetDependency */,
 			);
 			name = Pings;
 			productName = Pings;
@@ -241,10 +311,14 @@
 		4ABF41F31BD6942000E836DC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = nevercry;
 				TargetAttributes = {
+					4A9C89621BFA0D7300D4EF6A = {
+						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = L8463XAM23;
+					};
 					4ABF41FA1BD6942000E836DC = {
 						CreatedOnToolsVersion = 7.0.1;
 						DevelopmentTeam = L8463XAM23;
@@ -277,11 +351,20 @@
 				4ABF41FA1BD6942000E836DC /* Pings */,
 				4ABF420E1BD6942000E836DC /* PingsTests */,
 				4ABF42191BD6942000E836DC /* PingsUITests */,
+				4A9C89621BFA0D7300D4EF6A /* Pings Widget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4A9C89611BFA0D7300D4EF6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A9C896B1BFA0D7300D4EF6A /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4ABF41F91BD6942000E836DC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -357,6 +440,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4A9C895F1BFA0D7300D4EF6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A9C89681BFA0D7300D4EF6A /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4ABF41F71BD6942000E836DC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -390,6 +481,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4A9C896E1BFA0D7300D4EF6A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4A9C89621BFA0D7300D4EF6A /* Pings Widget */;
+			targetProxy = 4A9C896D1BFA0D7300D4EF6A /* PBXContainerItemProxy */;
+		};
 		4ABF42111BD6942000E836DC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4ABF41FA1BD6942000E836DC /* Pings */;
@@ -403,6 +499,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		4A9C89691BFA0D7300D4EF6A /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A9C896A1BFA0D7300D4EF6A /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		4ABF42021BD6942000E836DC /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -422,6 +526,30 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4A9C89701BFA0D7300D4EF6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Pings Widget/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nevercry.Pings.Pings-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		4A9C89711BFA0D7300D4EF6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Pings Widget/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nevercry.Pings.Pings-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		4ABF42211BD6942000E836DC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -511,6 +639,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Pings/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -527,6 +656,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Pings/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -587,6 +717,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4A9C89721BFA0D7300D4EF6A /* Build configuration list for PBXNativeTarget "Pings Widget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A9C89701BFA0D7300D4EF6A /* Debug */,
+				4A9C89711BFA0D7300D4EF6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4ABF41F61BD6942000E836DC /* Build configuration list for PBXProject "Pings" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

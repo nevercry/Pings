@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NotificationCenter
 
 class FileListTableViewController: UITableViewController, DirectoryWatcherDelegate {
     
@@ -34,6 +35,14 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         
         docWatcher = DirectoryWatcher.watchFolderWithPath(watchPath, delegate: self)
         directoryDidChange(docWatcher)
+        
+        if let mutableShortCut = UIApplication.sharedApplication().shortcutItems?.last {
+            let userInfoDic = mutableShortCut.userInfo as! [String : Int]
+            recentFileIndex = userInfoDic["applicationShortcutUserInfoKey"]
+        } else {
+            NCWidgetController.widgetController().setHasContent(false, forWidgetWithBundleIdentifier: YSFGlobalConstants.BundleId.WidgetId)
+        }
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -174,6 +183,22 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     
     func remveFileAtIndex(index: Int) {
         let fileName = fileList[index]
+        
+        // check RecentFile is be delete ones?
+        if recentFileIndex != nil {
+            if recentFileIndex! == index {
+                recentFileIndex = -1
+                
+                NCWidgetController.widgetController().setHasContent(false, forWidgetWithBundleIdentifier: YSFGlobalConstants.BundleId.WidgetId)
+                
+            } else {
+                if recentFileIndex! > index {
+                    recentFileIndex!--
+                }
+            }
+        }
+        
+
         let documentsDirectoryPath = AppDelegate().applicationDocumentsDirectory()
         let defaultManager = NSFileManager.defaultManager()
         let fileURL = NSURL.fileURLWithPath(documentsDirectoryPath).URLByAppendingPathComponent(fileName + "." + "\(YSFGlobalConstants.Strings.FileExtension)")
@@ -193,11 +218,7 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
                 
                 let index = tableView.indexPathForCell(cell)
                 
-                guard let noFirstIndex = index?.row where index?.row != 0 else {
-                    return
-                }
-                
-                recentNotFirstFileIndex = noFirstIndex
+                recentFileIndex = index?.row
                 
             } else if let fileName = sender as? String {
                 if let ptvc = segue.destinationViewController as? PingsTableViewController {
@@ -209,15 +230,23 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     
     // MARK: - getters and settes
     
-    var recentNotFirstFileIndex:Int? {
+    var recentFileIndex:Int? {
         willSet {
             
         }
         didSet {
-            let shortcut1 = UIMutableApplicationShortcutItem(type: AppDelegate.ShortcutIdentifier.Second.type, localizedTitle: "Ping Recent", localizedSubtitle: "\(fileList[recentNotFirstFileIndex!])", icon: UIApplicationShortcutIcon(type: .Time), userInfo: ["applicationShortcutUserInfoKey": recentNotFirstFileIndex!])
+            if recentFileIndex != -1 {
+               let shortcut1 = UIMutableApplicationShortcutItem(type: AppDelegate.ShortcutIdentifier.Second.type, localizedTitle: "Ping Recent", localizedSubtitle: "\(fileList[recentFileIndex!])", icon: UIApplicationShortcutIcon(type: .Time), userInfo: ["applicationShortcutUserInfoKey": recentFileIndex!])
+                UIApplication.sharedApplication().shortcutItems = [shortcut1]
+                NCWidgetController.widgetController().setHasContent(true, forWidgetWithBundleIdentifier: YSFGlobalConstants.BundleId.WidgetId)
+                
+            } else {
+                UIApplication.sharedApplication().shortcutItems = []
+            }
+            
             
             // Update the application providing the initial 'dynamic' shortcut items.
-            UIApplication.sharedApplication().shortcutItems = [shortcut1]
+            
         }
     }
     

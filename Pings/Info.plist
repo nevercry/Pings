@@ -2,22 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIApplicationShortcutItems</key>
+	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>UIApplicationShortcutItemIconType</key>
-			<string>UIApplicationShortcutIconTypeTaskCompleted</string>
-			<key>UIApplicationShortcutItemSubtitle</key>
-			<string>Ping First Server List</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>First Ping</string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER).First</string>
-			<key>UIApplicationShortcutItemUserInfo</key>
-			<dict>
-				<key>firstShorcutKey1</key>
-				<string>firstShortcutKeyValue1</string>
-			</dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>pings</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>com.nevercry.Pings</string>
 		</dict>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
@@ -53,6 +46,24 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeTaskCompleted</string>
+			<key>UIApplicationShortcutItemSubtitle</key>
+			<string>Ping First Server List</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>First Ping</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).First</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>firstShorcutKey1</key>
+				<string>firstShortcutKeyValue1</string>
+			</dict>
+		</dict>
+	</array>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

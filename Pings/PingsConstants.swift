@@ -19,4 +19,10 @@ struct YSFGlobalConstants {
         static let DefaultFileName = "DEFAULT"
         static let PingsHasCreateDefaultFileOnceKey = "PingsHasCreateDefaultFileOnceKey"  // Only create default file once
     }
+    
+    struct BundleId {
+        static let WidgetId = "com.nevercry.Pings.Pings-Widget"
+    
+    }
+
 }
