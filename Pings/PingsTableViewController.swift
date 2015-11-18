@@ -270,6 +270,25 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
             updateUI()
         }
     }
+    
+    // MARK: - Preview actions
+    
+    override func previewActionItems() -> [UIPreviewActionItem] {
+        let previewActionItem1 = UIPreviewAction(title: "Ping", style: .Default) { previewAction, viewController in
+            
+            let pingsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PingsTableViewController") as? PingsTableViewController
+            let tmpVC = viewController as! PingsTableViewController
+            
+            pingsTVC?.fileName = tmpVC.fileName
+            pingsTVC?.isFromShortCut = true
+            
+            if let navVC = UIApplication.sharedApplication().delegate?.window??.rootViewController as? UINavigationController {
+                navVC.pushViewController(pingsTVC!, animated: false)
+            }
+        }
+        
+        return [previewActionItem1]
+    }
 
     // MARK: - Table view data source
 

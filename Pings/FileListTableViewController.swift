@@ -43,6 +43,18 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
             NCWidgetController.widgetController().setHasContent(false, forWidgetWithBundleIdentifier: YSFGlobalConstants.BundleId.WidgetId)
         }
         
+        // Check for force touch feature, and add force touch/previewing capability.
+        if traitCollection.forceTouchCapability == .Available {
+            /*
+            Register for `UIViewControllerPreviewingDelegate` to enable
+            "Peek" and "Pop".
+            (see: MasterViewController+UIViewControllerPreviewing.swift)
+            
+            The view controller will be automatically unregistered when it is
+            deallocated.
+            */
+            registerForPreviewingWithDelegate(self, sourceView: view)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
