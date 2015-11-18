@@ -66,8 +66,14 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
         if let editVC = sender.sourceViewController as? EditHostTableViewController {
             
             if editVC.host?.hostName != editVC.hostName || editVC.host?.nickName != editVC.nickName {
-                editVC.host?.hostName = editVC.hostName
-                editVC.host?.nickName = editVC.nickName
+                if editVC.hostName != "" {
+                    editVC.host?.hostName = editVC.hostName
+                }
+                
+                if editVC.nickName != "" {
+                    editVC.host?.nickName = editVC.nickName
+                }
+                
                 updateFile()
                 tableView.reloadData()
             }
