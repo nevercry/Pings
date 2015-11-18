@@ -49,20 +49,26 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
         }
     }
     
+    // MARK: - Parse File
     func readfile(fileName: String) {
         let fileURL = NSURL(fileURLWithPath: AppDelegate().applicationDocumentsDirectory()).URLByAppendingPathComponent(fileName + ".conf")
         let fileText = try! String(contentsOfURL: fileURL, encoding: NSUTF8StringEncoding)
         
         if fileText.characters.count > 0 {
             let scanner = NSScanner(string: fileText)
-            
-            let SERVER = "[Server]"
-            let flagSet = NSCharacterSet.newlineCharacterSet()
+            let SERVER = "[Server]\n"
+            let linebreak = NSCharacterSet.newlineCharacterSet()
             scanner.scanString(SERVER, intoString: nil)
             var hostName: NSString?
-            while scanner.scanUpToCharactersFromSet(flagSet, intoString: &hostName) {
-                let host = Host(hostName: String(hostName!), averageTime: "")
-                serverLists.append(host)
+            
+            while !scanner.atEnd {
+                scanner.scanUpToCharactersFromSet(linebreak, intoString: &hostName)
+                if let formatedHostNameString = hostName?.stringByReplacingOccurrencesOfString(" ", withString: "") {
+                    if formatedHostNameString.characters.count > 0 {
+                        let host = Host(hostName: formatedHostNameString, averageTime: "")
+                        serverLists.append(host)
+                    }
+                }
             }
         }
     }
