@@ -11,9 +11,11 @@ import Foundation
 class Host {
     var hostName: String?
     var averageTime: String?
+    var nickName: String? 
     
     init(hostName: String, averageTime: String) {
         self.hostName = hostName
         self.averageTime = averageTime
+        self.nickName = hostName
     }
 }

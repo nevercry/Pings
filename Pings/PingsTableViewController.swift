@@ -12,6 +12,10 @@ import CDZPinger
 
 class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProgressHUDDelegate {
     
+    private struct Constants {
+        static let EditHostSegueIdentifier = "Edit Host"
+    }
+    
     // MARK: - Model
     var fileName: String? {
         didSet {
@@ -37,17 +41,40 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
     }
 
     
+    // MARK: - Unwind Segue
     @IBAction func unwindToPingsForAddDone(sender: UIStoryboardSegue) {
-        if let attvc = sender.sourceViewController as? AddThingTableViewController {
-            if let thing = attvc.thing {
-                savefile(thing)
-                let host = Host.init(hostName: thing,averageTime: "")
+        if let attvc = sender.sourceViewController as? AddHostTableViewController {
+            if let hostName = attvc.hostName {
+                let host = Host.init(hostName: hostName,averageTime: "")
+                var saveStr = hostName
+                if let nickName = attvc.nickName {
+                    if nickName.characters.count > 0 {
+                        saveStr = "\(hostName)\"\(nickName)\""
+                        host.nickName = nickName
+                    }
+                }
+                
+                savefile(saveStr)
                 serverLists.append(host)
                 tableView.reloadData()
                 updateUI()
             }
         }
     }
+    
+    @IBAction func unwindToPingsForEditDone(sender: UIStoryboardSegue) {
+        if let editVC = sender.sourceViewController as? EditHostTableViewController {
+            
+            if editVC.host?.hostName != editVC.hostName || editVC.host?.nickName != editVC.nickName {
+                editVC.host?.hostName = editVC.hostName
+                editVC.host?.nickName = editVC.nickName
+                updateFile()
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    
     
     // MARK: - Parse File
     func readfile(fileName: String) {
@@ -63,9 +90,15 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
             
             while !scanner.atEnd {
                 scanner.scanUpToCharactersFromSet(linebreak, intoString: &hostName)
-                if let formatedHostNameString = hostName?.stringByReplacingOccurrencesOfString(" ", withString: "") {
-                    if formatedHostNameString.characters.count > 0 {
-                        let host = Host(hostName: formatedHostNameString, averageTime: "")
+                if let stringArr = hostName?.componentsSeparatedByString("\"") {
+                    let unFormatHostName = stringArr[0]
+                    if unFormatHostName.characters.count > 0 {
+                        let hostName = unFormatHostName.stringByReplacingOccurrencesOfString(" ", withString: "")
+                        let host = Host(hostName: hostName, averageTime: "")
+                        if stringArr.count > 1 {
+                            let nickName = stringArr[1]
+                            host.nickName = nickName
+                        }
                         serverLists.append(host)
                     }
                 }
@@ -95,14 +128,15 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
     func removeServerAtIndex(index: Int) {
         
         serverLists.removeAtIndex(index)
-        
-        let serverS = serverLists.map({ $0.hostName! }).joinWithSeparator("\n") + "\n"
+        updateFile()
+    }
+    
+    func updateFile() {
+        let serverS = serverLists.map({ $0.hostName! + ($0.nickName! == $0.hostName! ? "" : "\"\($0.nickName!)\"") }).joinWithSeparator("\n") + "\n"
         
         let fileURL = NSURL(fileURLWithPath: AppDelegate().applicationDocumentsDirectory()).URLByAppendingPathComponent(fileName! + ".conf")
         
         try! serverS.writeToURL(fileURL, atomically: true, encoding: NSUTF8StringEncoding)
-        
-        
     }
     
     func updateUI() {
@@ -312,7 +346,7 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath)
         
         let host = serverLists[indexPath.row]
-        cell.textLabel?.text = host.hostName
+        cell.textLabel?.text = host.nickName
         cell.detailTextLabel?.text = host.averageTime
         
         return cell
@@ -353,14 +387,18 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
     }
     */
 
-    /*
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == Constants.EditHostSegueIdentifier {
+            if let editVC = segue.destinationViewController as? EditHostTableViewController {
+                let cell = sender as! UITableViewCell
+                let indexPath = tableView.indexPathForCell(cell)
+                let host = serverLists[indexPath!.row]
+                editVC.host = host
+            }
+        }
     }
-    */
+    
 
 }

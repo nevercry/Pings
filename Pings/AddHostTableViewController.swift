@@ -8,14 +8,15 @@
 
 import UIKit
 
-class AddThingTableViewController: UITableViewController, UITextFieldDelegate {
+class AddHostTableViewController: UITableViewController, UITextFieldDelegate {
 
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField! { didSet { textField.delegate = self } }
+    @IBOutlet weak var nickNameTextField: UITextField! { didSet { nickNameTextField.delegate = self } }
     
-    var thing: String? {
+    var hostName: String? {
         didSet {
-            if thing?.characters.count > 0 {
+            if hostName?.characters.count > 0 {
                 doneBarButton.enabled = true
             } else {
                 doneBarButton.enabled = false
@@ -23,23 +24,25 @@ class AddThingTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    var nickName: String?
+    
     private var tfObserver: NSObjectProtocol?
+    private var nickNametfObserver: NSObjectProtocol?
     
     func observeTextFields() {
         let center = NSNotificationCenter.defaultCenter()
         let queue = NSOperationQueue.mainQueue()
         tfObserver = center.addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: queue) { [weak self] notification in
             guard let strongSelf = self else { return }
-            strongSelf.thing = strongSelf.textField.text
+            strongSelf.hostName = strongSelf.textField.text
         }
-    }
-    
-    @IBAction func done(sender: UIBarButtonItem) {
+        nickNametfObserver = center.addObserverForName(UITextFieldTextDidChangeNotification, object: nickNameTextField, queue: queue) { [weak self] notification in
+            guard let strongSelf = self else { return }
+            strongSelf.nickName = strongSelf.nickNameTextField.text
+        }
         
-        
     }
-    
-    
+        
     // MARK: - View LifeCycle
     
     override func viewDidLoad() {
@@ -57,9 +60,11 @@ class AddThingTableViewController: UITableViewController, UITextFieldDelegate {
         if let observer = tfObserver {
             NSNotificationCenter.defaultCenter().removeObserver(observer)
         }
+        
+        if let observer = nickNametfObserver {
+            NSNotificationCenter.defaultCenter().removeObserver(observer)
+        }
     }
-    
-    
     
     
     // MARK: - UITextFieldDelegate
