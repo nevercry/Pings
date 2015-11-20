@@ -9,12 +9,17 @@
 import UIKit
 import MBProgressHUD
 import CDZPinger
+import WatchConnectivity
 
-class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProgressHUDDelegate {
+class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProgressHUDDelegate, WCSessionDelegate {
     
     private struct Constants {
         static let EditHostSegueIdentifier = "Edit Host"
     }
+    
+    // MARK: - For the Watch!
+    var isWatchReachable = false
+    var isWatchAppInstalled = false
     
     // MARK: - Model
     var fileName: String? {
@@ -237,6 +242,16 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
         super.viewDidLoad()
         spinner.delegate = self
         self.view.addSubview(spinner)
+        
+        // Setup Apple Watch connection
+        if WCSession.isSupported() {
+            let session = WCSession.defaultSession()
+            session.delegate = self
+            session.activateSession()
+            isWatchAppInstalled = session.watchAppInstalled
+            isWatchReachable = session.reachable
+        }
+        
         updateUI()
     }
     
@@ -248,6 +263,16 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
         }
     }
     
+    // MARK: - Connect to apple watch  WCSessionDelegate
+    
+    func sessionReachabilityDidChange(session: WCSession) {
+        isWatchAppInstalled = session.watchAppInstalled
+        isWatchReachable = session.reachable
+    }
+    
+    
+    
+    
     // MARK: - MBProgressHUDDelegate
     func hudWasHidden(hud: MBProgressHUD!) {
         if fastServer != nil {
@@ -255,7 +280,19 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
                 let indexPath = NSIndexPath.init(forRow: fastIndex, inSection: 0)
                 tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .Middle)
             }
+            
+            //MARK: ping actions is over, show result
             showFastServer()
+            
+            //MARK: Connect to iWatch
+            if isWatchAppInstalled {
+                
+                let session = WCSession.defaultSession()
+                
+                try! session.updateApplicationContext(["serverName":fastServer!.hostName!,"avgTime":fastServer!.averageTime!])
+                
+            }
+            
         }
     }
     
