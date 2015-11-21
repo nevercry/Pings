@@ -93,6 +93,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             shouldPerformAdditionalDelegateHandling = false
         }
         
+        // MARK: need Setup WCSession for communication apple watch
+        WatchSessionManager.sharedManager.startSession()
+        
         return shouldPerformAdditionalDelegateHandling
     }
     

@@ -23,9 +23,12 @@
 		4A9C89681BFA0D7300D4EF6A /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C89671BFA0D7300D4EF6A /* TodayViewController.swift */; };
 		4A9C896B1BFA0D7300D4EF6A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A9C89691BFA0D7300D4EF6A /* MainInterface.storyboard */; };
 		4A9C896F1BFA0D7300D4EF6A /* Pings Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4A9C89631BFA0D7300D4EF6A /* Pings Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4A9D95491C00327F005740A4 /* PingsSharedDataLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A9D95481C00327F005740A4 /* PingsSharedDataLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4A9D954D1C00327F005740A4 /* PingsSharedDataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9D95461C00327F005740A4 /* PingsSharedDataLayer.framework */; };
+		4A9D954E1C00327F005740A4 /* PingsSharedDataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9D95461C00327F005740A4 /* PingsSharedDataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4A9D95531C00330C005740A4 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F558D1BD7819C00175F82 /* Host.swift */; };
 		4A9F558A1BD75AAA00175F82 /* PingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F55891BD75AAA00175F82 /* PingsTableViewController.swift */; };
 		4A9F558C1BD75F1200175F82 /* AddHostTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F558B1BD75F1200175F82 /* AddHostTableViewController.swift */; };
-		4A9F558E1BD7819C00175F82 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F558D1BD7819C00175F82 /* Host.swift */; };
 		4A9F55951BD7DAC400175F82 /* DirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F55941BD7DAC400175F82 /* DirectoryWatcher.m */; };
 		4A9F55981BD7DFD300175F82 /* FileListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F55971BD7DFD300175F82 /* FileListTableViewController.swift */; };
 		4ABF41FF1BD6942000E836DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF41FE1BD6942000E836DC /* AppDelegate.swift */; };
@@ -34,6 +37,9 @@
 		4ABF42091BD6942000E836DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ABF42071BD6942000E836DC /* LaunchScreen.storyboard */; };
 		4ABF42141BD6942000E836DC /* PingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF42131BD6942000E836DC /* PingsTests.swift */; };
 		4ABF421F1BD6942000E836DC /* PingsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF421E1BD6942000E836DC /* PingsUITests.swift */; };
+		4AD3B7B61C00436500348BCF /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD3B7B41C003BD700348BCF /* WatchSessionManager.swift */; };
+		4AD3B7B81C0044EE00348BCF /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD3B7B71C0044EE00348BCF /* WatchSessionManager.swift */; };
+		4AD3B7BA1C004F1A00348BCF /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD3B7B91C004F1A00348BCF /* DataSource.swift */; };
 		F345EC08EAD5605D80AD3364 /* Pods_Pings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABFBB812537539158CFE0D0 /* Pods_Pings.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +64,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4A9C89621BFA0D7300D4EF6A;
 			remoteInfo = "Pings Widget";
+		};
+		4A9D954B1C00327F005740A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4ABF41F31BD6942000E836DC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4A9D95451C00327F005740A4;
+			remoteInfo = PingsSharedDataLayer;
 		};
 		4ABF42101BD6942000E836DC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -109,6 +122,17 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4A9D95521C00327F005740A4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4A9D954E1C00327F005740A4 /* PingsSharedDataLayer.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -134,9 +158,12 @@
 		4A9C89671BFA0D7300D4EF6A /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		4A9C896A1BFA0D7300D4EF6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		4A9C896C1BFA0D7300D4EF6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A9D95461C00327F005740A4 /* PingsSharedDataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PingsSharedDataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A9D95481C00327F005740A4 /* PingsSharedDataLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PingsSharedDataLayer.h; sourceTree = "<group>"; };
+		4A9D954A1C00327F005740A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A9F55891BD75AAA00175F82 /* PingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingsTableViewController.swift; sourceTree = "<group>"; };
 		4A9F558B1BD75F1200175F82 /* AddHostTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHostTableViewController.swift; sourceTree = "<group>"; };
-		4A9F558D1BD7819C00175F82 /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
+		4A9F558D1BD7819C00175F82 /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Host.swift; path = ../Pings/Host.swift; sourceTree = "<group>"; };
 		4A9F55901BD7D9F500175F82 /* Pings-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pings-Bridging-Header.h"; sourceTree = "<group>"; };
 		4A9F55931BD7DAC400175F82 /* DirectoryWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryWatcher.h; sourceTree = "<group>"; };
 		4A9F55941BD7DAC400175F82 /* DirectoryWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryWatcher.m; sourceTree = "<group>"; };
@@ -153,6 +180,9 @@
 		4ABF421A1BD6942000E836DC /* PingsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PingsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ABF421E1BD6942000E836DC /* PingsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingsUITests.swift; sourceTree = "<group>"; };
 		4ABF42201BD6942000E836DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AD3B7B41C003BD700348BCF /* WatchSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchSessionManager.swift; path = PingsSharedDataLayer/WatchSessionManager.swift; sourceTree = SOURCE_ROOT; };
+		4AD3B7B71C0044EE00348BCF /* WatchSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchSessionManager.swift; sourceTree = "<group>"; };
+		4AD3B7B91C004F1A00348BCF /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		9128490206F9CE53A944E7EB /* Pods-Pings.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pings.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pings/Pods-Pings.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,11 +202,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4A9D95421C00327F005740A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4ABF41F81BD6942000E836DC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				F345EC08EAD5605D80AD3364 /* Pods_Pings.framework in Frameworks */,
+				4A9D954D1C00327F005740A4 /* PingsSharedDataLayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +248,8 @@
 		4A7212B61BFF2D67002D166B /* PingsWatch Extension */ = {
 			isa = PBXGroup;
 			children = (
+				4AD3B7B91C004F1A00348BCF /* DataSource.swift */,
+				4AD3B7B71C0044EE00348BCF /* WatchSessionManager.swift */,
 				4A7212B91BFF2D67002D166B /* InterfaceController.swift */,
 				4A7212BB1BFF2D67002D166B /* ExtensionDelegate.swift */,
 				4A7212BD1BFF2D67002D166B /* NotificationController.swift */,
@@ -239,6 +279,16 @@
 			path = "Pings Widget";
 			sourceTree = "<group>";
 		};
+		4A9D95471C00327F005740A4 /* PingsSharedDataLayer */ = {
+			isa = PBXGroup;
+			children = (
+				4A9D95481C00327F005740A4 /* PingsSharedDataLayer.h */,
+				4A9F558D1BD7819C00175F82 /* Host.swift */,
+				4A9D954A1C00327F005740A4 /* Info.plist */,
+			);
+			path = PingsSharedDataLayer;
+			sourceTree = "<group>";
+		};
 		4A9F55961BD7DB4200175F82 /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,6 +307,7 @@
 				4A9C89661BFA0D7300D4EF6A /* Pings Widget */,
 				4A7212A71BFF2D67002D166B /* PingsWatch */,
 				4A7212B61BFF2D67002D166B /* PingsWatch Extension */,
+				4A9D95471C00327F005740A4 /* PingsSharedDataLayer */,
 				4ABF41FC1BD6942000E836DC /* Products */,
 				7D91CCF18D7F7B3E22EB6DB6 /* Pods */,
 				85FE06F751782006530C413F /* Frameworks */,
@@ -272,6 +323,7 @@
 				4A9C89631BFA0D7300D4EF6A /* Pings Widget.appex */,
 				4A7212A61BFF2D67002D166B /* PingsWatch.app */,
 				4A7212B21BFF2D67002D166B /* PingsWatch Extension.appex */,
+				4A9D95461C00327F005740A4 /* PingsSharedDataLayer.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -279,15 +331,15 @@
 		4ABF41FD1BD6942000E836DC /* Pings */ = {
 			isa = PBXGroup;
 			children = (
-				4ABF41FE1BD6942000E836DC /* AppDelegate.swift */,
+				4AD3B7B41C003BD700348BCF /* WatchSessionManager.swift */,
 				4A9C89471BF61A0500D4EF6A /* PingsConstants.swift */,
+				4ABF41FE1BD6942000E836DC /* AppDelegate.swift */,
+				4ABF42021BD6942000E836DC /* Main.storyboard */,
 				4A9F55971BD7DFD300175F82 /* FileListTableViewController.swift */,
 				4A7212A01BFC73C6002D166B /* FileListTableViewController+UIViewControllerPreviewing.swift */,
 				4A9F55891BD75AAA00175F82 /* PingsTableViewController.swift */,
-				4A9F558D1BD7819C00175F82 /* Host.swift */,
 				4A9F558B1BD75F1200175F82 /* AddHostTableViewController.swift */,
 				4A7212A21BFCEE45002D166B /* EditHostTableViewController.swift */,
-				4ABF42021BD6942000E836DC /* Main.storyboard */,
 				4ABF42051BD6942000E836DC /* Assets.xcassets */,
 				4ABF42071BD6942000E836DC /* LaunchScreen.storyboard */,
 				4ABF420A1BD6942000E836DC /* Info.plist */,
@@ -334,6 +386,17 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4A9D95431C00327F005740A4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A9D95491C00327F005740A4 /* PingsSharedDataLayer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		4A7212A51BFF2D67002D166B /* PingsWatch */ = {
@@ -387,6 +450,24 @@
 			productReference = 4A9C89631BFA0D7300D4EF6A /* Pings Widget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		4A9D95451C00327F005740A4 /* PingsSharedDataLayer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A9D95511C00327F005740A4 /* Build configuration list for PBXNativeTarget "PingsSharedDataLayer" */;
+			buildPhases = (
+				4A9D95411C00327F005740A4 /* Sources */,
+				4A9D95421C00327F005740A4 /* Frameworks */,
+				4A9D95431C00327F005740A4 /* Headers */,
+				4A9D95441C00327F005740A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PingsSharedDataLayer;
+			productName = PingsSharedDataLayer;
+			productReference = 4A9D95461C00327F005740A4 /* PingsSharedDataLayer.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		4ABF41FA1BD6942000E836DC /* Pings */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4ABF42231BD6942000E836DC /* Build configuration list for PBXNativeTarget "Pings" */;
@@ -399,12 +480,14 @@
 				2CC63B5A38017E5B3D9E8581 /* Copy Pods Resources */,
 				4A9C89731BFA0D7300D4EF6A /* Embed App Extensions */,
 				4A7212CE1BFF2D67002D166B /* Embed Watch Content */,
+				4A9D95521C00327F005740A4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				4A9C896E1BFA0D7300D4EF6A /* PBXTargetDependency */,
 				4A7212C51BFF2D67002D166B /* PBXTargetDependency */,
+				4A9D954C1C00327F005740A4 /* PBXTargetDependency */,
 			);
 			name = Pings;
 			productName = Pings;
@@ -469,6 +552,10 @@
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = L8463XAM23;
 					};
+					4A9D95451C00327F005740A4 = {
+						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = L8463XAM23;
+					};
 					4ABF41FA1BD6942000E836DC = {
 						CreatedOnToolsVersion = 7.0.1;
 						DevelopmentTeam = L8463XAM23;
@@ -504,6 +591,7 @@
 				4A9C89621BFA0D7300D4EF6A /* Pings Widget */,
 				4A7212A51BFF2D67002D166B /* PingsWatch */,
 				4A7212B11BFF2D67002D166B /* PingsWatch Extension */,
+				4A9D95451C00327F005740A4 /* PingsSharedDataLayer */,
 			);
 		};
 /* End PBXProject section */
@@ -531,6 +619,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A9C896B1BFA0D7300D4EF6A /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A9D95441C00327F005740A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,10 +708,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AD3B7BA1C004F1A00348BCF /* DataSource.swift in Sources */,
 				4A7212BE1BFF2D67002D166B /* NotificationController.swift in Sources */,
 				4A7212BC1BFF2D67002D166B /* ExtensionDelegate.swift in Sources */,
 				4A7212BA1BFF2D67002D166B /* InterfaceController.swift in Sources */,
 				4A7212C01BFF2D67002D166B /* GlanceController.swift in Sources */,
+				4AD3B7B81C0044EE00348BCF /* WatchSessionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,6 +722,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A9C89681BFA0D7300D4EF6A /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A9D95411C00327F005740A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A9D95531C00330C005740A4 /* Host.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,8 +743,8 @@
 				4A9F558A1BD75AAA00175F82 /* PingsTableViewController.swift in Sources */,
 				4A9F55981BD7DFD300175F82 /* FileListTableViewController.swift in Sources */,
 				4A7212A31BFCEE45002D166B /* EditHostTableViewController.swift in Sources */,
+				4AD3B7B61C00436500348BCF /* WatchSessionManager.swift in Sources */,
 				4A9F55951BD7DAC400175F82 /* DirectoryWatcher.m in Sources */,
-				4A9F558E1BD7819C00175F82 /* Host.swift in Sources */,
 				4A9C89481BF61A0500D4EF6A /* PingsConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -677,6 +782,11 @@
 			isa = PBXTargetDependency;
 			target = 4A9C89621BFA0D7300D4EF6A /* Pings Widget */;
 			targetProxy = 4A9C896D1BFA0D7300D4EF6A /* PBXContainerItemProxy */;
+		};
+		4A9D954C1C00327F005740A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4A9D95451C00327F005740A4 /* PingsSharedDataLayer */;
+			targetProxy = 4A9D954B1C00327F005740A4 /* PBXContainerItemProxy */;
 		};
 		4ABF42111BD6942000E836DC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -807,6 +917,46 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nevercry.Pings.Pings-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		4A9D954F1C00327F005740A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PingsSharedDataLayer/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nevercry.PingsSharedDataLayer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4A9D95501C00327F005740A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PingsSharedDataLayer/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nevercry.PingsSharedDataLayer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -984,6 +1134,7 @@
 				4A7212C91BFF2D67002D166B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4A7212CB1BFF2D67002D166B /* Build configuration list for PBXNativeTarget "PingsWatch" */ = {
 			isa = XCConfigurationList;
@@ -992,12 +1143,22 @@
 				4A7212CD1BFF2D67002D166B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4A9C89721BFA0D7300D4EF6A /* Build configuration list for PBXNativeTarget "Pings Widget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4A9C89701BFA0D7300D4EF6A /* Debug */,
 				4A9C89711BFA0D7300D4EF6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4A9D95511C00327F005740A4 /* Build configuration list for PBXNativeTarget "PingsSharedDataLayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A9D954F1C00327F005740A4 /* Debug */,
+				4A9D95501C00327F005740A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

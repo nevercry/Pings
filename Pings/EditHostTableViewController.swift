@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import PingsSharedDataLayer
 
 class EditHostTableViewController: AddHostTableViewController {
     var host: Host? {

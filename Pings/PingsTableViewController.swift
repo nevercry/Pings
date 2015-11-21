@@ -9,18 +9,15 @@
 import UIKit
 import MBProgressHUD
 import CDZPinger
-import WatchConnectivity
+import PingsSharedDataLayer
 
-class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProgressHUDDelegate, WCSessionDelegate {
+class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProgressHUDDelegate {
     
     private struct Constants {
         static let EditHostSegueIdentifier = "Edit Host"
     }
     
-    // MARK: - For the Watch!
-    var isWatchReachable = false
-    var isWatchAppInstalled = false
-    
+   
     // MARK: - Model
     var fileName: String? {
         didSet {
@@ -242,16 +239,7 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
         super.viewDidLoad()
         spinner.delegate = self
         self.view.addSubview(spinner)
-        
-        // Setup Apple Watch connection
-        if WCSession.isSupported() {
-            let session = WCSession.defaultSession()
-            session.delegate = self
-            session.activateSession()
-            isWatchAppInstalled = session.watchAppInstalled
-            isWatchReachable = session.reachable
-        }
-        
+    
         updateUI()
     }
     
@@ -262,16 +250,6 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
             pings(self)
         }
     }
-    
-    // MARK: - Connect to apple watch  WCSessionDelegate
-    
-    func sessionReachabilityDidChange(session: WCSession) {
-        isWatchAppInstalled = session.watchAppInstalled
-        isWatchReachable = session.reachable
-    }
-    
-    
-    
     
     // MARK: - MBProgressHUDDelegate
     func hudWasHidden(hud: MBProgressHUD!) {
@@ -285,14 +263,13 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
             showFastServer()
             
             //MARK: Connect to iWatch
-            if isWatchAppInstalled {
-                
-                let session = WCSession.defaultSession()
-                
-                try! session.updateApplicationContext(["serverName":fastServer!.hostName!,"avgTime":fastServer!.averageTime!])
-                
-            }
             
+            do {
+                try WatchSessionManager.sharedManager.updateAppicationContext(["serverName":fastServer!.hostName!,"avgTime":fastServer!.averageTime!])
+            } catch {
+                let alertController = UIAlertController(title: "Oops!", message: "Looks like your \(fastServer?.hostName) got stuck on the way!", preferredStyle: .Alert)
+                presentViewController(alertController, animated: true, completion: nil)
+            }
         }
     }
     

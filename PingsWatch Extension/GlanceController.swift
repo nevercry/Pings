@@ -8,48 +8,59 @@
 
 import WatchKit
 import Foundation
-import WatchConnectivity
 
 
-class GlanceController: WKInterfaceController, WCSessionDelegate {
+class GlanceController: WKInterfaceController, DataSourceChangedDelegate {
 
     @IBOutlet var fastServerLabel: WKInterfaceLabel!
     @IBOutlet var averageTimeLabel: WKInterfaceLabel!
+    
+    func updateUI() {
+        // debug
+        //        print("last stotre context is \(WatchSessionManager.sharedManager.lastStoreApplicationContext)")
+        
+        let context = WatchSessionManager.sharedManager.lastStoreApplicationContext
+        
+        if let serverName = context["serverName"] as? String {
+            fastServerLabel.setText(serverName)
+            let avgTime = context["avgTime"] as? String
+            averageTimeLabel.setText(avgTime)
+        }
+    }
+
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
-        
-        // Configure interface objects here.
-        if WCSession.isSupported() {
-            let session = WCSession.defaultSession()
-            session.delegate = self
-            session.activateSession()
-            
-            let context = session.receivedApplicationContext
-            
-            if let serverName = context["serverName"] {
-                fastServerLabel.setText(serverName as? String)
-                averageTimeLabel.setText(context["avgTime"] as? String)
-            }
-            
-        }
     }
 
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        
+        WatchSessionManager.sharedManager.addDataSourceChangedDelegate(self)
+        
+        WatchSessionManager.sharedManager.debugDelegate()
+        
+        updateUI()
     }
 
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
+        
+        WatchSessionManager.sharedManager.removeDataSourceChangedDelegate(self)
+        
         super.didDeactivate()
     }
     
-    // MARK: - WCSessionDelegate
-    
-    func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-        if let serverName = applicationContext["serverName"] {
-            fastServerLabel.setText(serverName as? String)
-            averageTimeLabel.setText(applicationContext["avgTime"] as? String)
+    // MARK: DataSourceUpdatedDelegate
+    func dataSourceDidUpdate(dataSource: DataSource) {
+        switch dataSource.server {
+        case .Server(let serverName, let avgTime):
+            fastServerLabel.setText(serverName)
+            averageTimeLabel.setText(avgTime)
+        case .Unknown:
+            fastServerLabel.setText("UnKnow Server")
+            averageTimeLabel.setText("ms")
         }
     }
+    
 }
