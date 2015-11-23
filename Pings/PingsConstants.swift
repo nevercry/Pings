@@ -24,5 +24,10 @@ struct YSFGlobalConstants {
         static let WidgetId = "com.nevercry.Pings.Pings-Widget"
     
     }
+    
+    struct Banner {
+        static let BannerViewActionWillBegin = "BannerViewActionWillBegin"
+        static let BannerViewActionDidFinish = "BannerViewActionDidFinish"
+    }
 
 }

@@ -176,7 +176,16 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
         let serverCount = serverLists.count
         let progress:Int
         if serverCount > 0 {
-            progress = (serverLists.count - unPingedServerCount) * 100 / serverLists.count
+            
+            let progressCaCulator = (serverLists.count - unPingedServerCount) * 100 / serverLists.count
+            
+            if progressCaCulator > 100 {
+                print("error progress should not greater than 100, sth error should occur!!")
+                progress = 100
+            } else {
+                progress = progressCaCulator
+            }
+            
         } else {
             progress = 0
         }
@@ -203,32 +212,34 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
     }
     
     func beginPingServer() {
-        var lastUnPingedIndex: Int
-        if unPingedServerCount > 0 {
-            lastUnPingedIndex = unPingedServerCount - 1
-        } else {
-            lastUnPingedIndex = unPingedServerCount
-        }
+        let lastUnPingedIndex = unPingedServerCount - 1
         let host = serverLists[lastUnPingedIndex]
         pinger = CDZPinger.init(host: host.hostName)
         pinger!.delegate = self
         pinger!.startPinging()
         
+        //debug 
+        
+        print("lastUnPingIndex \(lastUnPingedIndex)  unPingServerCount \(unPingedServerCount)")
+        
         timeoutTimer?.invalidate()
-        timeoutTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "checkIfTimeOut:", userInfo: host, repeats: false)
+        timeoutTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "checkIfTimeOut:", userInfo: host, repeats: false)
     }
     
     func checkIfTimeOut(sender: AnyObject?) {
+        pinger!.stopPinging()
+        unPingedServerCount--
+        
         let timer = sender as! NSTimer
         let host = timer.userInfo as! Host
         
         host.averageTime = "timeout"
-        if unPingedServerCount == 0 {
+        
+        if unPingedServerCount > 0 {
+            beginPingServer()
+        } else {
             spinner.hide(true)
             tableView.reloadData()
-        } else {
-            unPingedServerCount--
-            beginPingServer()
         }
     }
     
@@ -276,12 +287,9 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
     // MARK: - CDPingerDelegate 
     func pinger(pinger: CDZPinger!, didUpdateWithAverageSeconds seconds: NSTimeInterval) {
         timeoutTimer?.invalidate()
-        var lastUnPingedIndex: Int
-        if unPingedServerCount > 0 {
-            lastUnPingedIndex = unPingedServerCount - 1
-        } else {
-            lastUnPingedIndex = unPingedServerCount
-        }
+        pinger.stopPinging()
+        
+        let lastUnPingedIndex = unPingedServerCount - 1
         let host = serverLists[lastUnPingedIndex]
         let avgmSec = seconds * 1000
         let formatStr = String(format: "%.f", avgmSec)
@@ -294,8 +302,6 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
         } else {
             fastServer = host
         }
-        
-        pinger.stopPinging()
         
         unPingedServerCount--
         
@@ -311,15 +317,11 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
     
     func pinger(pinger: CDZPinger!, didEncounterError error: NSError!) {
         timeoutTimer?.invalidate()
-        var lastUnPingedIndex: Int
-        if unPingedServerCount > 0 {
-            lastUnPingedIndex = unPingedServerCount - 1
-        } else {
-            lastUnPingedIndex = unPingedServerCount
-        }
+        pinger.stopPinging()
+        
+        let lastUnPingedIndex = unPingedServerCount - 1
         let host = serverLists[lastUnPingedIndex]
         host.averageTime = "\(error.localizedDescription)"
-        pinger.stopPinging()
         
         unPingedServerCount--
         if unPingedServerCount > 0 {
