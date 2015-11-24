@@ -169,7 +169,7 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         if let removeAdProduct = products.last {
             priceFormatter.locale = removeAdProduct.priceLocale
             let realPrice = priceFormatter.stringFromNumber(removeAdProduct.price)
-            let alertVC = UIAlertController.init(title: "Remove Ad Forever?", message: "\(removeAdProduct.localizedDescription), You will pay \(realPrice!) for that.", preferredStyle: .Alert)
+            let alertVC = UIAlertController.init(title: "Remove Ad Forever ?", message: "\(removeAdProduct.localizedDescription) You will pay \(realPrice!) for that.", preferredStyle: .Alert)
             
             let purchaseAction = UIAlertAction.init(title: "Purchase", style: .Destructive, handler: { (action) -> Void in
                 PingsProducts.store.purchaseProduct(removeAdProduct)
