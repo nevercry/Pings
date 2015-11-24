@@ -13,37 +13,67 @@ A container view controller that manages an ADBannerView and a content view cont
 
 import UIKit
 import iAd
+import StoreKit
 
 class BannerViewController: UIViewController, ADBannerViewDelegate {
     
     var bannerView: ADBannerView?
     var contentController: UIViewController?
     
+    
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     // MARK: - View LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        bannerView = ADBannerView.init(adType: .Banner)
-        bannerView?.delegate = self
+        
         contentController = self.childViewControllers[0]
-        view.addSubview(bannerView!)
+        
+        // IAP
+        // Subscribe to a notification that fires when a product is purchased.
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "productPurchased:", name: IAPHelperProductPurchasedNotification, object: nil)
+        
+        // Check RemoveAd Whether Purchased
+        let removeAdProductID = PingsProducts.RemoveAd
+        if !PingsProducts.store.isProductPurchased(removeAdProductID) {
+            // TODO: Not show Ad anymore
+            bannerView = ADBannerView.init(adType: .Banner)
+            bannerView?.delegate = self
+            view.addSubview(bannerView!)
+        }
     }
     
     override func viewDidLayoutSubviews() {
         var contentFrame = view.bounds, bannerFrame = CGRectZero
         
-        bannerFrame.size = bannerView!.sizeThatFits(contentFrame.size)
+        bannerFrame.size = bannerView?.sizeThatFits(contentFrame.size) ?? CGSizeZero
         
-        if bannerView!.bannerLoaded {
+        if bannerView?.bannerLoaded == true {
             contentFrame.size.height -= bannerFrame.size.height
             bannerFrame.origin.y = contentFrame.size.height
         } else {
             bannerFrame.origin.y = contentFrame.size.height
         }
         contentController!.view.frame = contentFrame
-        bannerView!.frame = bannerFrame
+        bannerView?.frame = bannerFrame
+    }
+    
+    
+    // MARK: - IAP
+    func productPurchased(sender: NSNotification) {
+        // Remove Ad
+        bannerView?.delegate = nil
+        bannerView?.removeFromSuperview()
+        bannerView = nil
+        
+        UIView.animateWithDuration(0.25) { () -> Void in
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
+        }
     }
 
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {

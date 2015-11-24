@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import MBProgressHUD
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Type
+    var spinner: MBProgressHUD?
     
     enum ShortcutIdentifier: String {
         case First
@@ -156,6 +159,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         fileListVC.navigationController?.setViewControllers([fileListVC,pingsTVC], animated: false)
     }
     
+    
+//    // MARK: - SKPaymentTransactionObserver
+//    func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+//        for transaction in transactions {
+//            switch transaction.transactionState {
+//                // Call the appropriate custom method for the transaction state.
+//            case .Purchasing:
+//                showTransactionAsInProgress(transaction, deferred: false)
+//            case .Deferred:
+//                showTransactionAsInProgress(transaction, deferred: true)
+//            case .Failed:
+//                failedTransaction(transaction)
+//            case .Purchased:
+//                completeTransaction(transaction)
+//            case .Restored:
+//                restoreTransaction(transaction)
+//            }
+//        }
+//    }
+//    
+//    func showTransactionAsInProgress(transaction: SKPaymentTransaction, deferred: Bool) {
+//        
+//        
+//        
+//        if deferred {
+//            print("transaction is deferred")
+//        } else {
+//            print("transaction is purchasing")
+//        }
+//        
+//    }
+//    
+//    func failedTransaction(transaction: SKPaymentTransaction) {
+//        
+//        print("fail transaction")
+//        let alertViewController = UIAlertController.init(title: "Fail transation", message: "error \(transaction.error)", preferredStyle: .Alert)
+//        
+//        self.window?.rootViewController?.presentViewController(alertViewController, animated: true, completion: nil)
+//    }
+//    
+//    func completeTransaction(transaction: SKPaymentTransaction) {
+//        print("complete transaction")
+//    }
+//    
+//    func restoreTransaction(transaction: SKPaymentTransaction) {
+//        print("restore transaction")
+//    }
     
     
     // MARK: - File system support

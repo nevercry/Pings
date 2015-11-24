@@ -8,6 +8,9 @@
 
 import UIKit
 import NotificationCenter
+import MBProgressHUD
+import StoreKit
+
 
 class FileListTableViewController: UITableViewController, DirectoryWatcherDelegate {
     
@@ -18,6 +21,22 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     
     var myObserver: NSObjectProtocol?
     
+    // This list of available in-app purchases
+    var products = [SKProduct]()
+    
+    lazy var spinner: MBProgressHUD = {
+        return MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    }()
+    
+    // priceFormatter is used to show proper, localized currency
+    lazy var priceFormatter: NSNumberFormatter = {
+        let pf = NSNumberFormatter()
+        pf.formatterBehavior = .Behavior10_4
+        pf.numberStyle = .CurrencyStyle
+        return pf
+    }()
+    
+    
     private struct Constants {
         static let CellReuseIdentifier = "File Cell"
         static let SegueIdentifier = "Show Servers"
@@ -25,11 +44,20 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     
     // MARK: - View LifeCycle
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // IAP
+        // Subscribe to a notification that fires when a product is purchased.
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "productPurchased:", name: IAPHelperProductPurchasedNotification, object: nil)
+        
         editBarButton.target = self
         self.navigationItem.rightBarButtonItem = editBarButton
+        
         
         let watchPath = AppDelegate().applicationDocumentsDirectory()
         
@@ -55,6 +83,8 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
             */
             registerForPreviewingWithDelegate(self, sourceView: view)
         }
+        
+        updateUI()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -100,6 +130,67 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         }
     }
     
+    // MARK: - Private Methods
+    
+    func updateUI() {
+        
+        // Check RemoveAd Whether Purchased
+        if !isRemoveAd {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "RemoveAd", style: .Plain, target: self, action: "removeAd:")
+            
+            self.navigationItem.leftBarButtonItem?.enabled = IAPHelper.canMakePayments()
+        } else {
+            self.navigationItem.leftBarButtonItem = nil
+        }
+    }
+    
+    func removeAd(sender: UIBarButtonItem) {
+        
+        
+        if products.count > 0 {
+            self.displayIAPUI()
+        } else {
+            spinner.show(true)
+            spinner.userInteractionEnabled = true
+            PingsProducts.store.requestProductsWithCompletionHandler { (sucess, products) -> () in
+                self.spinner.hide(true)
+                if sucess {
+                    self.products = products
+                    self.displayIAPUI()
+                } else {
+                    let errorAlert = UIAlertController.init(title: "Error", message: "Request AppStore Error", preferredStyle: .Alert)
+                    self.presentViewController(errorAlert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    func displayIAPUI() {
+        if let removeAdProduct = products.last {
+            priceFormatter.locale = removeAdProduct.priceLocale
+            let realPrice = priceFormatter.stringFromNumber(removeAdProduct.price)
+            let alertVC = UIAlertController.init(title: "Remove Ad Forever?", message: "\(removeAdProduct.localizedDescription), You will pay \(realPrice!) for that.", preferredStyle: .Alert)
+            
+            let purchaseAction = UIAlertAction.init(title: "Purchase", style: .Destructive, handler: { (action) -> Void in
+                PingsProducts.store.purchaseProduct(removeAdProduct)
+            })
+            
+            let restoreAction = UIAlertAction.init(title: "Restore", style: .Default, handler: { (action) -> Void in
+                PingsProducts.store.restoreCompletedTransactions()
+            })
+            
+            alertVC.addAction(purchaseAction)
+            alertVC.addAction(restoreAction)
+            
+            presentViewController(alertVC, animated: true, completion: nil)
+        }
+    }
+    
+    func productPurchased(sender: NSNotification) {
+        updateUI()
+    }
+    
+
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -241,17 +332,22 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     }
     
     // MARK: - getters and settes
+    var isRemoveAd: Bool {
+        get {
+            return PingsProducts.store.isProductPurchased(PingsProducts.RemoveAd)
+        }
+    }
+    
     
     var recentFileIndex:Int? {
         willSet {
             
         }
         didSet {
-            if recentFileIndex != -1 {
+            if recentFileIndex != -1 && recentFileIndex < fileList.count{
                let shortcut1 = UIMutableApplicationShortcutItem(type: AppDelegate.ShortcutIdentifier.Second.type, localizedTitle: "Ping Recent", localizedSubtitle: "\(fileList[recentFileIndex!])", icon: UIApplicationShortcutIcon(type: .Time), userInfo: ["applicationShortcutUserInfoKey": recentFileIndex!])
                 UIApplication.sharedApplication().shortcutItems = [shortcut1]
                 NCWidgetController.widgetController().setHasContent(true, forWidgetWithBundleIdentifier: YSFGlobalConstants.BundleId.WidgetId)
-                
             } else {
                 UIApplication.sharedApplication().shortcutItems = []
             }
@@ -261,7 +357,4 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
             
         }
     }
-    
-    
-
 }
