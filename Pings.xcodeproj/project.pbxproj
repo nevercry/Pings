@@ -22,6 +22,8 @@
 		4A7212C01BFF2D67002D166B /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7212BF1BFF2D67002D166B /* GlanceController.swift */; };
 		4A7212C21BFF2D67002D166B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A7212C11BFF2D67002D166B /* Assets.xcassets */; };
 		4A7212C61BFF2D67002D166B /* PingsWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4A7212A61BFF2D67002D166B /* PingsWatch.app */; };
+		4A7EEDE61C058F7B001D7A18 /* EditOrCreateConfigFileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7EEDE51C058F7B001D7A18 /* EditOrCreateConfigFileTableViewController.swift */; };
+		4A7EEDE81C05AD2E001D7A18 /* FileIOHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7EEDE71C05AD2E001D7A18 /* FileIOHelper.swift */; };
 		4A863A331C01D39C00217B9C /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A863A321C01D39C00217B9C /* iAd.framework */; };
 		4A9C89481BF61A0500D4EF6A /* PingsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C89471BF61A0500D4EF6A /* PingsConstants.swift */; };
 		4A9C89651BFA0D7300D4EF6A /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9C89641BFA0D7300D4EF6A /* NotificationCenter.framework */; };
@@ -161,6 +163,8 @@
 		4A7212BF1BFF2D67002D166B /* GlanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
 		4A7212C11BFF2D67002D166B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4A7212C31BFF2D67002D166B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A7EEDE51C058F7B001D7A18 /* EditOrCreateConfigFileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditOrCreateConfigFileTableViewController.swift; sourceTree = "<group>"; };
+		4A7EEDE71C05AD2E001D7A18 /* FileIOHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileIOHelper.swift; sourceTree = "<group>"; };
 		4A863A321C01D39C00217B9C /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		4A9C89471BF61A0500D4EF6A /* PingsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingsConstants.swift; sourceTree = "<group>"; };
 		4A9C89631BFA0D7300D4EF6A /* Pings Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pings Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -347,9 +351,11 @@
 				4A9C89471BF61A0500D4EF6A /* PingsConstants.swift */,
 				4A58767A1C04B70C0045143C /* PingsProducts.swift */,
 				4A5876781C047E4D0045143C /* IAPHelper.swift */,
+				4A7EEDE71C05AD2E001D7A18 /* FileIOHelper.swift */,
 				4ABF41FE1BD6942000E836DC /* AppDelegate.swift */,
 				4ABF42021BD6942000E836DC /* Main.storyboard */,
 				4A9F55971BD7DFD300175F82 /* FileListTableViewController.swift */,
+				4A7EEDE51C058F7B001D7A18 /* EditOrCreateConfigFileTableViewController.swift */,
 				4A7212A01BFC73C6002D166B /* FileListTableViewController+UIViewControllerPreviewing.swift */,
 				4A9F55891BD75AAA00175F82 /* PingsTableViewController.swift */,
 				4A2E5ADC1C03483D00FAC67C /* BannerViewController.swift */,
@@ -770,7 +776,9 @@
 				4A7212A31BFCEE45002D166B /* EditHostTableViewController.swift in Sources */,
 				4AD3B7B61C00436500348BCF /* WatchSessionManager.swift in Sources */,
 				4A9F55951BD7DAC400175F82 /* DirectoryWatcher.m in Sources */,
+				4A7EEDE81C05AD2E001D7A18 /* FileIOHelper.swift in Sources */,
 				4A9C89481BF61A0500D4EF6A /* PingsConstants.swift in Sources */,
+				4A7EEDE61C058F7B001D7A18 /* EditOrCreateConfigFileTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

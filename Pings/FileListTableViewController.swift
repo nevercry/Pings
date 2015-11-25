@@ -28,6 +28,8 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         return MBProgressHUD.showHUDAddedTo(self.view, animated: true)
     }()
     
+    var isInEditMode = false
+    
     // priceFormatter is used to show proper, localized currency
     lazy var priceFormatter: NSNumberFormatter = {
         let pf = NSNumberFormatter()
@@ -39,7 +41,10 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     
     private struct Constants {
         static let CellReuseIdentifier = "File Cell"
+        static let AddFileCellReuseIdentifier = "Add File Cell"
         static let SegueIdentifier = "Show Servers"
+        static let EditFileSegueIdentifier = "Edit File"
+        static let AddFileSegueIdentifier = "Add File"
     }
     
     // MARK: - View LifeCycle
@@ -51,16 +56,14 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // IAP
+        /// IAP
         // Subscribe to a notification that fires when a product is purchased.
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "productPurchased:", name: IAPHelperProductPurchasedNotification, object: nil)
         
         editBarButton.target = self
         self.navigationItem.rightBarButtonItem = editBarButton
         
-        
         let watchPath = AppDelegate().applicationDocumentsDirectory()
-        
         docWatcher = DirectoryWatcher.watchFolderWithPath(watchPath, delegate: self)
         directoryDidChange(docWatcher)
         
@@ -86,11 +89,7 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         
         updateUI()
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         let center = NSNotificationCenter.defaultCenter()
@@ -137,7 +136,6 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         // Check RemoveAd Whether Purchased
         if !isRemoveAd {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "RemoveAd", style: .Plain, target: self, action: "removeAd:")
-            
             self.navigationItem.leftBarButtonItem?.enabled = IAPHelper.canMakePayments()
         } else {
             self.navigationItem.leftBarButtonItem = nil
@@ -145,7 +143,6 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     }
     
     func removeAd(sender: UIBarButtonItem) {
-        
         
         if products.count > 0 {
             self.displayIAPUI()
@@ -194,35 +191,69 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return isInEditMode ? 2 : 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fileList.count
+        let numberOfRows: Int
+        
+        if section == 0 {
+            numberOfRows = fileList.count
+        } else if section == 1 {
+            numberOfRows = 1
+        } else {
+            numberOfRows = 0
+        }
+    
+        return numberOfRows
     }
     
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellReuseIdentifier, forIndexPath: indexPath)
-        cell.textLabel!.text = fileList[indexPath.row]
+        let section = indexPath.section
+        
+        var cell: UITableViewCell
+        
+        if section == 1 {
+            cell = tableView.dequeueReusableCellWithIdentifier(Constants.AddFileCellReuseIdentifier, forIndexPath: indexPath)
+        } else {
+            cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellReuseIdentifier, forIndexPath: indexPath)
+            cell.textLabel!.text = fileList[indexPath.row]
+        }
         
         return cell
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-}
+        var canEdit: Bool = false
+        
+        if indexPath.section == 0 {
+            canEdit = true
+        }
+        
+        return canEdit
+    }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            remveFileAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        let section = indexPath.section
+        if section == 0 {
+            if editingStyle == .Delete {
+                remveFileAtIndex(indexPath.row)
+            }
         }
     }
-
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 {
+            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            if tableView.editing {
+                performSegueWithIdentifier(Constants.EditFileSegueIdentifier, sender: cell)
+            } else {
+                performSegueWithIdentifier(Constants.SegueIdentifier, sender: cell)
+            }
+        }
+    }
     
     // MARK: - DirectoryWatcherDelegate
-    
     func directoryDidChange(folderWatcher: DirectoryWatcher!) {
         fileList.removeAll()
         let documentsDirectoryPath = AppDelegate().applicationDocumentsDirectory()
@@ -237,7 +268,6 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
                 NSUserDefaults.standardUserDefaults().synchronize()
                 let defaultConfPathURL = NSURL(fileURLWithPath: documentsDirectoryPath).URLByAppendingPathComponent("\(YSFGlobalConstants.Strings.DefaultFileName)" + "." + "\(YSFGlobalConstants.Strings.FileExtension)")
                 defaultManager.createFileAtPath(defaultConfPathURL.path!, contents: nil, attributes: nil)
-                
             }
         } else {
             
@@ -274,14 +304,30 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     
     // MARK: - event response
     
-    func editFileList(var sender: UIBarButtonItem) {
+    func editFileList(sender: UIBarButtonItem) {
+        
+        if !isInEditMode && tableView.editing {
+            tableView.setEditing(false, animated: false)
+        }
+        
+
         tableView.setEditing(!tableView.editing, animated: true)
         let sysItem = tableView.editing ? UIBarButtonSystemItem.Done : .Edit
-        sender = UIBarButtonItem.init(barButtonSystemItem: sysItem, target: self, action: "editFileList:")
-        self.navigationItem.rightBarButtonItem = sender
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: sysItem, target: self, action: "editFileList:")
+        
+        isInEditMode = tableView.editing
+        if tableView.editing {
+            tableView.beginUpdates()
+            tableView.insertSections(NSIndexSet.init(index: 1), withRowAnimation: .Middle)
+            tableView.endUpdates()
+        } else {
+            tableView.beginUpdates()
+            tableView.deleteSections(NSIndexSet.init(index: 1), withRowAnimation: .Fade)
+            tableView.endUpdates()
+        }
+        
     }
 
-    
     // MARK: - private methods
     
     func remveFileAtIndex(index: Int) {
@@ -300,13 +346,13 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
                 }
             }
         }
-        
 
         let documentsDirectoryPath = AppDelegate().applicationDocumentsDirectory()
         let defaultManager = NSFileManager.defaultManager()
         let fileURL = NSURL.fileURLWithPath(documentsDirectoryPath).URLByAppendingPathComponent(fileName + "." + "\(YSFGlobalConstants.Strings.FileExtension)")
         try! defaultManager.removeItemAtURL(fileURL)
         fileList.removeAtIndex(index)
+        tableView.deleteRowsAtIndexPaths([NSIndexPath.init(forRow: index, inSection: 0)], withRowAnimation: .Fade)
     }
     
     // MARK: - Navigation
@@ -327,6 +373,17 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
                 if let ptvc = segue.destinationViewController as? PingsTableViewController {
                     ptvc.fileName = fileName
                 }
+            }
+        } else if segue.identifier == Constants.EditFileSegueIdentifier {
+            if let cell = sender as? UITableViewCell {
+                let fileName = cell.textLabel!.text
+                if let editVC = segue.destinationViewController.contentViewController as? EditOrCreateConfigFileTableViewController {
+                    editVC.editFile(fileName!)
+                }
+            }
+        } else if segue.identifier == Constants.AddFileSegueIdentifier {
+            if let desVC = segue.destinationViewController .contentViewController as? EditOrCreateConfigFileTableViewController {
+                desVC.lastPresentingVC  = self
             }
         }
     }
@@ -351,7 +408,6 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
             } else {
                 UIApplication.sharedApplication().shortcutItems = []
             }
-            
             
             // Update the application providing the initial 'dynamic' shortcut items.
             
