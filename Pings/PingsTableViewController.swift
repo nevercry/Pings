@@ -279,6 +279,8 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
                 try WatchSessionManager.sharedManager.updateAppicationContext(["serverName":fastServer!.hostName!,"avgTime":fastServer!.averageTime!])
             } catch {
                 let alertController = UIAlertController(title: "Oops!", message: "Looks like your \(fastServer?.hostName) got stuck on the way!", preferredStyle: .Alert)
+                let okAction = UIAlertAction.init(title: "OK", style: .Cancel, handler: nil)
+                alertController.addAction(okAction)
                 presentViewController(alertController, animated: true, completion: nil)
             }
         }

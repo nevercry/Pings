@@ -18,7 +18,7 @@ import StoreKit
 class BannerViewController: UIViewController, ADBannerViewDelegate {
     
     var bannerView: ADBannerView?
-    var contentController: UIViewController?
+    var bannerContentController: UIViewController?
     
     
     
@@ -31,7 +31,7 @@ class BannerViewController: UIViewController, ADBannerViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        contentController = self.childViewControllers[0]
+        bannerContentController = self.childViewControllers[0]
         
         // IAP
         // Subscribe to a notification that fires when a product is purchased.
@@ -58,7 +58,7 @@ class BannerViewController: UIViewController, ADBannerViewDelegate {
         } else {
             bannerFrame.origin.y = contentFrame.size.height
         }
-        contentController!.view.frame = contentFrame
+        bannerContentController!.view.frame = contentFrame
         bannerView?.frame = bannerFrame
     }
     
@@ -77,7 +77,7 @@ class BannerViewController: UIViewController, ADBannerViewDelegate {
     }
 
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return contentController!.preferredInterfaceOrientationForPresentation()
+        return bannerContentController!.preferredInterfaceOrientationForPresentation()
     }
     
     // MARK: - ADBannerViewDelegate 

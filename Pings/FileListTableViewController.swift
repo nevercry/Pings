@@ -23,11 +23,6 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     
     // This list of available in-app purchases
     var products = [SKProduct]()
-    
-    lazy var spinner: MBProgressHUD = {
-        return MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-    }()
-    
     var isInEditMode = false
     
     // priceFormatter is used to show proper, localized currency
@@ -142,20 +137,23 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         }
     }
     
+    // MARK: - Ad Remove
     func removeAd(sender: UIBarButtonItem) {
-        
+        sender.enabled = false
         if products.count > 0 {
             self.displayIAPUI()
         } else {
-            spinner.show(true)
-            spinner.userInteractionEnabled = true
+            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
             PingsProducts.store.requestProductsWithCompletionHandler { (sucess, products) -> () in
-                self.spinner.hide(true)
+                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                sender.enabled = true
                 if sucess {
                     self.products = products
                     self.displayIAPUI()
                 } else {
                     let errorAlert = UIAlertController.init(title: "Error", message: "Request AppStore Error", preferredStyle: .Alert)
+                    let okAction = UIAlertAction.init(title: "OK", style: .Cancel, handler: nil)
+                    errorAlert.addAction(okAction)
                     self.presentViewController(errorAlert, animated: true, completion: nil)
                 }
             }

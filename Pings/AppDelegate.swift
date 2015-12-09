@@ -139,7 +139,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - private methods
     
     func pingFileAt(index: Int) {
-        guard let currenVC = window!.rootViewController?.contentViewController else { return }
+        let bannerVC = window!.rootViewController! as! BannerViewController
+        guard let currenVC = bannerVC.bannerContentController?.contentViewController else { return }
         
         guard index < applicationFileList().count else { return }
         
