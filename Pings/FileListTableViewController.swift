@@ -14,8 +14,6 @@ import StoreKit
 
 class FileListTableViewController: UITableViewController, DirectoryWatcherDelegate {
     
-    var editBarButton: UIBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .Edit, target: nil, action: "editFileList:")
-    
     var fileList = [String]()
     var docWatcher: DirectoryWatcher?
     
@@ -23,7 +21,7 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     
     // This list of available in-app purchases
     var products = [SKProduct]()
-    var isInEditMode = false
+    var isNewConfigShow = false
     
     // priceFormatter is used to show proper, localized currency
     lazy var priceFormatter: NSNumberFormatter = {
@@ -55,8 +53,7 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         // Subscribe to a notification that fires when a product is purchased.
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "productPurchased:", name: IAPHelperProductPurchasedNotification, object: nil)
         
-        editBarButton.target = self
-        self.navigationItem.rightBarButtonItem = editBarButton
+        self.navigationItem.rightBarButtonItem = editButtonItem()
         
         let watchPath = AppDelegate().applicationDocumentsDirectory()
         docWatcher = DirectoryWatcher.watchFolderWithPath(watchPath, delegate: self)
@@ -137,6 +134,27 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         }
     }
     
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.setEditing(editing, animated: animated)
+        
+        if tableView.editing {
+            if !isNewConfigShow {
+                tableView.beginUpdates()
+                tableView.insertSections(NSIndexSet.init(index: 1), withRowAnimation: .Middle)
+                tableView.endUpdates()
+                isNewConfigShow = true
+            }
+        } else {
+            if isNewConfigShow {
+                tableView.beginUpdates()
+                tableView.deleteSections(NSIndexSet.init(index: 1), withRowAnimation: .Fade)
+                tableView.endUpdates()
+                isNewConfigShow = false
+            }
+        }
+    }
+    
     // MARK: - Ad Remove
     func removeAd(sender: UIBarButtonItem) {
         sender.enabled = false
@@ -189,7 +207,7 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return isInEditMode ? 2 : 1
+        return  tableView.editing ? 2 : 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -236,6 +254,7 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         if section == 0 {
             if editingStyle == .Delete {
                 remveFileAtIndex(indexPath.row)
+                tableView.deleteRowsAtIndexPaths([NSIndexPath.init(forRow: indexPath.row, inSection: 0)], withRowAnimation: .Fade)
             }
         }
     }
@@ -304,26 +323,7 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
     
     func editFileList(sender: UIBarButtonItem) {
         
-        if !isInEditMode && tableView.editing {
-            tableView.setEditing(false, animated: false)
-        }
-        
-
-        tableView.setEditing(!tableView.editing, animated: true)
-        let sysItem = tableView.editing ? UIBarButtonSystemItem.Done : .Edit
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: sysItem, target: self, action: "editFileList:")
-        
-        isInEditMode = tableView.editing
-        if tableView.editing {
-            tableView.beginUpdates()
-            tableView.insertSections(NSIndexSet.init(index: 1), withRowAnimation: .Middle)
-            tableView.endUpdates()
-        } else {
-            tableView.beginUpdates()
-            tableView.deleteSections(NSIndexSet.init(index: 1), withRowAnimation: .Fade)
-            tableView.endUpdates()
-        }
-        
+        self.setEditing(!tableView.editing, animated: true)
     }
 
     // MARK: - private methods
@@ -350,7 +350,6 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         let fileURL = NSURL.fileURLWithPath(documentsDirectoryPath).URLByAppendingPathComponent(fileName + "." + "\(YSFGlobalConstants.Strings.FileExtension)")
         try! defaultManager.removeItemAtURL(fileURL)
         fileList.removeAtIndex(index)
-        tableView.deleteRowsAtIndexPaths([NSIndexPath.init(forRow: index, inSection: 0)], withRowAnimation: .Fade)
     }
     
     // MARK: - Navigation
