@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import Firebase
 
 
 @UIApplicationMain
@@ -98,6 +99,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // MARK: need Setup WCSession for communication apple watch
         WatchSessionManager.sharedManager.startSession()
+        
+        // Use Firebase library to configure APIs
+        FIRApp.configure()
+        // GoogleAd
+        GADMobileAds.configureWithApplicationID("ca-app-pub-5747346530004992~5844643665");
         
         return shouldPerformAdditionalDelegateHandling
     }

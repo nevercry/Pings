@@ -12,12 +12,13 @@ A container view controller that manages an ADBannerView and a content view cont
 */
 
 import UIKit
-import iAd
 import StoreKit
+import Firebase
 
-class BannerViewController: UIViewController, ADBannerViewDelegate {
+class BannerViewController: UIViewController {
     
-    var bannerView: ADBannerView?
+    
+    @IBOutlet weak var bannerView: GADBannerView!
     var bannerContentController: UIViewController?
     
     
@@ -35,33 +36,20 @@ class BannerViewController: UIViewController, ADBannerViewDelegate {
         
         // IAP
         // Subscribe to a notification that fires when a product is purchased.
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "productPurchased:", name: IAPHelperProductPurchasedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BannerViewController.productPurchased(_:)), name: IAPHelperProductPurchasedNotification, object: nil)
         
         // Check RemoveAd Whether Purchased
         let removeAdProductID = PingsProducts.RemoveAd
         if !PingsProducts.store.isProductPurchased(removeAdProductID) {
             // TODO: Not show Ad anymore
-            bannerView = ADBannerView.init(adType: .Banner)
-            bannerView?.delegate = self
-            view.addSubview(bannerView!)
+            bannerView.adUnitID = "ca-app-pub-5747346530004992/7321376863"
+            bannerView.rootViewController = self
+            let request = GADRequest()
+            request.testDevices = ["3e450c8b8bf03d38e68d4fae12fed9ae"]
+            
+            bannerView.loadRequest(request)
         }
     }
-    
-    override func viewDidLayoutSubviews() {
-        var contentFrame = view.bounds, bannerFrame = CGRectZero
-        
-        bannerFrame.size = bannerView?.sizeThatFits(contentFrame.size) ?? CGSizeZero
-        
-        if bannerView?.bannerLoaded == true {
-            contentFrame.size.height -= bannerFrame.size.height
-            bannerFrame.origin.y = contentFrame.size.height
-        } else {
-            bannerFrame.origin.y = contentFrame.size.height
-        }
-        bannerContentController!.view.frame = contentFrame
-        bannerView?.frame = bannerFrame
-    }
-    
     
     // MARK: - IAP
     func productPurchased(sender: NSNotification) {
@@ -80,33 +68,6 @@ class BannerViewController: UIViewController, ADBannerViewDelegate {
         return bannerContentController!.preferredInterfaceOrientationForPresentation()
     }
     
-    // MARK: - ADBannerViewDelegate 
-    func bannerViewDidLoadAd(banner: ADBannerView!) {
-        UIView.animateWithDuration(0.25) { () -> Void in
-            self.view.setNeedsLayout()
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    func bannerView(banner: ADBannerView!, didFailToReceiveAdWithError error: NSError!) {
-        print("didFailToReceiveAdWithError \(error)");
-        
-        UIView.animateWithDuration(0.25) { () -> Void in
-            self.view.setNeedsLayout()
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    func bannerViewActionShouldBegin(banner: ADBannerView!, willLeaveApplication willLeave: Bool) -> Bool {
-        NSNotificationCenter.defaultCenter().postNotificationName(YSFGlobalConstants.Banner.BannerViewActionWillBegin, object: self)
-        return true
-    }
-    
-    func bannerViewActionDidFinish(banner: ADBannerView!) {
-        NSNotificationCenter.defaultCenter().postNotificationName(YSFGlobalConstants.Banner.BannerViewActionDidFinish, object: self)
-    }
-    
-
     /*
     // MARK: - Navigation
 

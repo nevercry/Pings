@@ -51,7 +51,7 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         
         /// IAP
         // Subscribe to a notification that fires when a product is purchased.
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "productPurchased:", name: IAPHelperProductPurchasedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FileListTableViewController.productPurchased(_:)), name: IAPHelperProductPurchasedNotification, object: nil)
         
         self.navigationItem.rightBarButtonItem = editButtonItem()
         
@@ -127,7 +127,7 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
         
         // Check RemoveAd Whether Purchased
         if !isRemoveAd {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "RemoveAd", style: .Plain, target: self, action: "removeAd:")
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "RemoveAd", style: .Plain, target: self, action: #selector(FileListTableViewController.removeAd(_:)))
             self.navigationItem.leftBarButtonItem?.enabled = IAPHelper.canMakePayments()
         } else {
             self.navigationItem.leftBarButtonItem = nil
@@ -340,7 +340,7 @@ class FileListTableViewController: UITableViewController, DirectoryWatcherDelega
                 
             } else {
                 if recentFileIndex! > index {
-                    recentFileIndex!--
+                    recentFileIndex! -= 1
                 }
             }
         }

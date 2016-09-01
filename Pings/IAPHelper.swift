@@ -159,7 +159,7 @@ extension IAPHelper: SKPaymentTransactionObserver {
     private func failedTransaction(transaction: SKPaymentTransaction) {
         print("failedTransaction...")
         if let errorcode = transaction.error?.code {
-            if errorcode != SKErrorPaymentCancelled {
+            if errorcode != SKErrorCode.PaymentCancelled.rawValue {
                 print("Transaction error: \(transaction.error!.localizedDescription)")
             }
         }

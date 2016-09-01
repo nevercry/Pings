@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48EFEA511F59A126AEAB31F1 /* Pods_PingsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 984572CBFA87D40090EAC229 /* Pods_PingsUITests.framework */; };
+		49547F51BB9E2601E49B4000 /* Pods_Pings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFD0A4421371889F5C571F9 /* Pods_Pings.framework */; };
+		4A08505A1D78DCF30008203A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4A0850591D78DCF30008203A /* GoogleService-Info.plist */; };
 		4A2E5ADD1C03483D00FAC67C /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E5ADC1C03483D00FAC67C /* BannerViewController.swift */; };
 		4A2E5ADF1C03FBC000FAC67C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A2E5ADE1C03FBC000FAC67C /* StoreKit.framework */; };
 		4A5876791C047E4D0045143C /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5876781C047E4D0045143C /* IAPHelper.swift */; };
@@ -24,7 +27,6 @@
 		4A7212C61BFF2D67002D166B /* PingsWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4A7212A61BFF2D67002D166B /* PingsWatch.app */; };
 		4A7EEDE61C058F7B001D7A18 /* EditOrCreateConfigFileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7EEDE51C058F7B001D7A18 /* EditOrCreateConfigFileTableViewController.swift */; };
 		4A7EEDE81C05AD2E001D7A18 /* FileIOHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7EEDE71C05AD2E001D7A18 /* FileIOHelper.swift */; };
-		4A863A331C01D39C00217B9C /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A863A321C01D39C00217B9C /* iAd.framework */; };
 		4A9C89481BF61A0500D4EF6A /* PingsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C89471BF61A0500D4EF6A /* PingsConstants.swift */; };
 		4A9C89651BFA0D7300D4EF6A /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9C89641BFA0D7300D4EF6A /* NotificationCenter.framework */; };
 		4A9C89681BFA0D7300D4EF6A /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C89671BFA0D7300D4EF6A /* TodayViewController.swift */; };
@@ -47,7 +49,7 @@
 		4AD3B7B61C00436500348BCF /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD3B7B41C003BD700348BCF /* WatchSessionManager.swift */; };
 		4AD3B7B81C0044EE00348BCF /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD3B7B71C0044EE00348BCF /* WatchSessionManager.swift */; };
 		4AD3B7BA1C004F1A00348BCF /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD3B7B91C004F1A00348BCF /* DataSource.swift */; };
-		F345EC08EAD5605D80AD3364 /* Pods_Pings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABFBB812537539158CFE0D0 /* Pods_Pings.framework */; };
+		92AFA83EE000A15D0F3B6663 /* Pods_PingsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F70B0176435523FD2456C0A /* Pods_PingsTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,8 +145,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1632D07C18C2920DBFF66C99 /* Pods-Pings.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pings.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pings/Pods-Pings.debug.xcconfig"; sourceTree = "<group>"; };
-		3ABFBB812537539158CFE0D0 /* Pods_Pings.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pings.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A0850591D78DCF30008203A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		4A2E5ADC1C03483D00FAC67C /* BannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerViewController.swift; sourceTree = "<group>"; };
 		4A2E5ADE1C03FBC000FAC67C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		4A5876781C047E4D0045143C /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
@@ -165,7 +166,6 @@
 		4A7212C31BFF2D67002D166B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A7EEDE51C058F7B001D7A18 /* EditOrCreateConfigFileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditOrCreateConfigFileTableViewController.swift; sourceTree = "<group>"; };
 		4A7EEDE71C05AD2E001D7A18 /* FileIOHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileIOHelper.swift; sourceTree = "<group>"; };
-		4A863A321C01D39C00217B9C /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		4A9C89471BF61A0500D4EF6A /* PingsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingsConstants.swift; sourceTree = "<group>"; };
 		4A9C89631BFA0D7300D4EF6A /* Pings Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pings Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A9C89641BFA0D7300D4EF6A /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -197,10 +197,25 @@
 		4AD3B7B41C003BD700348BCF /* WatchSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchSessionManager.swift; path = PingsSharedDataLayer/WatchSessionManager.swift; sourceTree = SOURCE_ROOT; };
 		4AD3B7B71C0044EE00348BCF /* WatchSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchSessionManager.swift; sourceTree = "<group>"; };
 		4AD3B7B91C004F1A00348BCF /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
-		9128490206F9CE53A944E7EB /* Pods-Pings.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pings.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pings/Pods-Pings.release.xcconfig"; sourceTree = "<group>"; };
+		4F58B792354426A6D179CD3F /* Pods-PingsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PingsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PingsUITests/Pods-PingsUITests.release.xcconfig"; sourceTree = "<group>"; };
+		6A15C6B598269F835D5AAD93 /* Pods-Pings.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pings.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pings/Pods-Pings.release.xcconfig"; sourceTree = "<group>"; };
+		6F70B0176435523FD2456C0A /* Pods_PingsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PingsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7EFD0A4421371889F5C571F9 /* Pods_Pings.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pings.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F583F4C69CDBB0571B418E7 /* Pods-PingsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PingsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PingsTests/Pods-PingsTests.release.xcconfig"; sourceTree = "<group>"; };
+		984572CBFA87D40090EAC229 /* Pods_PingsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PingsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5145D3FA015A57B2D53094E /* Pods-Pings.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pings.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pings/Pods-Pings.debug.xcconfig"; sourceTree = "<group>"; };
+		EF9743B69014525AE85C2C3F /* Pods-PingsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PingsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PingsTests/Pods-PingsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FEAA741F8E9B3248E7415B7B /* Pods-PingsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PingsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PingsUITests/Pods-PingsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4888277920423F0D1E0BB143 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A7212AF1BFF2D67002D166B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -227,10 +242,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A863A331C01D39C00217B9C /* iAd.framework in Frameworks */,
-				F345EC08EAD5605D80AD3364 /* Pods_Pings.framework in Frameworks */,
 				4A9D954D1C00327F005740A4 /* PingsSharedDataLayer.framework in Frameworks */,
 				4A2E5ADF1C03FBC000FAC67C /* StoreKit.framework in Frameworks */,
+				49547F51BB9E2601E49B4000 /* Pods_Pings.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +252,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92AFA83EE000A15D0F3B6663 /* Pods_PingsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +260,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48EFEA511F59A126AEAB31F1 /* Pods_PingsUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,8 +341,8 @@
 				4A7212B61BFF2D67002D166B /* PingsWatch Extension */,
 				4A9D95471C00327F005740A4 /* PingsSharedDataLayer */,
 				4ABF41FC1BD6942000E836DC /* Products */,
-				7D91CCF18D7F7B3E22EB6DB6 /* Pods */,
 				85FE06F751782006530C413F /* Frameworks */,
+				DA41BDE08001A4E4FF3B4438 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -364,6 +380,7 @@
 				4ABF42051BD6942000E836DC /* Assets.xcassets */,
 				4ABF42071BD6942000E836DC /* LaunchScreen.storyboard */,
 				4ABF420A1BD6942000E836DC /* Info.plist */,
+				4A0850591D78DCF30008203A /* GoogleService-Info.plist */,
 				4A9F55901BD7D9F500175F82 /* Pings-Bridging-Header.h */,
 				4A9F55961BD7DB4200175F82 /* ObjC */,
 			);
@@ -388,24 +405,29 @@
 			path = PingsUITests;
 			sourceTree = "<group>";
 		};
-		7D91CCF18D7F7B3E22EB6DB6 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1632D07C18C2920DBFF66C99 /* Pods-Pings.debug.xcconfig */,
-				9128490206F9CE53A944E7EB /* Pods-Pings.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		85FE06F751782006530C413F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				4A2E5ADE1C03FBC000FAC67C /* StoreKit.framework */,
-				4A863A321C01D39C00217B9C /* iAd.framework */,
-				3ABFBB812537539158CFE0D0 /* Pods_Pings.framework */,
 				4A9C89641BFA0D7300D4EF6A /* NotificationCenter.framework */,
+				7EFD0A4421371889F5C571F9 /* Pods_Pings.framework */,
+				6F70B0176435523FD2456C0A /* Pods_PingsTests.framework */,
+				984572CBFA87D40090EAC229 /* Pods_PingsUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DA41BDE08001A4E4FF3B4438 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A5145D3FA015A57B2D53094E /* Pods-Pings.debug.xcconfig */,
+				6A15C6B598269F835D5AAD93 /* Pods-Pings.release.xcconfig */,
+				EF9743B69014525AE85C2C3F /* Pods-PingsTests.debug.xcconfig */,
+				8F583F4C69CDBB0571B418E7 /* Pods-PingsTests.release.xcconfig */,
+				FEAA741F8E9B3248E7415B7B /* Pods-PingsUITests.debug.xcconfig */,
+				4F58B792354426A6D179CD3F /* Pods-PingsUITests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -428,6 +450,7 @@
 			buildPhases = (
 				4A7212A41BFF2D67002D166B /* Resources */,
 				4A7212CA1BFF2D67002D166B /* Embed App Extensions */,
+				4888277920423F0D1E0BB143 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -495,15 +518,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4ABF42231BD6942000E836DC /* Build configuration list for PBXNativeTarget "Pings" */;
 			buildPhases = (
-				178C49787FFF61B377FFA541 /* Check Pods Manifest.lock */,
+				99731BEFB81773556565C38A /* 📦 Check Pods Manifest.lock */,
 				4ABF41F71BD6942000E836DC /* Sources */,
 				4ABF41F81BD6942000E836DC /* Frameworks */,
 				4ABF41F91BD6942000E836DC /* Resources */,
-				579A45D9C663EFFAC123AA4F /* Embed Pods Frameworks */,
-				2CC63B5A38017E5B3D9E8581 /* Copy Pods Resources */,
 				4A9C89731BFA0D7300D4EF6A /* Embed App Extensions */,
 				4A7212CE1BFF2D67002D166B /* Embed Watch Content */,
 				4A9D95521C00327F005740A4 /* Embed Frameworks */,
+				FDB6EB2CEBB584739DDCB16B /* 📦 Embed Pods Frameworks */,
+				FA46BE1A9E234E121F24EC2F /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -521,9 +544,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4ABF42261BD6942000E836DC /* Build configuration list for PBXNativeTarget "PingsTests" */;
 			buildPhases = (
+				8A6FA78180375FEBED2BBE9A /* 📦 Check Pods Manifest.lock */,
 				4ABF420B1BD6942000E836DC /* Sources */,
 				4ABF420C1BD6942000E836DC /* Frameworks */,
 				4ABF420D1BD6942000E836DC /* Resources */,
+				7ACE0D0B7A626786CAAF12D3 /* 📦 Embed Pods Frameworks */,
+				56D4511242E393741DBAE1E1 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -539,9 +565,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4ABF42291BD6942000E836DC /* Build configuration list for PBXNativeTarget "PingsUITests" */;
 			buildPhases = (
+				8F4BD46B26BDDCF95C6A7A21 /* 📦 Check Pods Manifest.lock */,
 				4ABF42161BD6942000E836DC /* Sources */,
 				4ABF42171BD6942000E836DC /* Frameworks */,
 				4ABF42181BD6942000E836DC /* Resources */,
+				499B7971FB4EA657683A3C15 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -662,6 +690,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4ABF42091BD6942000E836DC /* LaunchScreen.storyboard in Resources */,
+				4A08505A1D78DCF30008203A /* GoogleService-Info.plist in Resources */,
 				4ABF42061BD6942000E836DC /* Assets.xcassets in Resources */,
 				4ABF42041BD6942000E836DC /* Main.storyboard in Resources */,
 			);
@@ -684,14 +713,59 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		178C49787FFF61B377FFA541 /* Check Pods Manifest.lock */ = {
+		499B7971FB4EA657683A3C15 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PingsUITests/Pods-PingsUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		56D4511242E393741DBAE1E1 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PingsTests/Pods-PingsTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7ACE0D0B7A626786CAAF12D3 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PingsTests/Pods-PingsTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8A6FA78180375FEBED2BBE9A /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -699,14 +773,44 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		2CC63B5A38017E5B3D9E8581 /* Copy Pods Resources */ = {
+		8F4BD46B26BDDCF95C6A7A21 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		99731BEFB81773556565C38A /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FA46BE1A9E234E121F24EC2F /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -714,14 +818,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pings/Pods-Pings-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		579A45D9C663EFFAC123AA4F /* Embed Pods Frameworks */ = {
+		FDB6EB2CEBB584739DDCB16B /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1078,7 +1182,7 @@
 		};
 		4ABF42241BD6942000E836DC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1632D07C18C2920DBFF66C99 /* Pods-Pings.debug.xcconfig */;
+			baseConfigurationReference = A5145D3FA015A57B2D53094E /* Pods-Pings.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1096,7 +1200,7 @@
 		};
 		4ABF42251BD6942000E836DC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9128490206F9CE53A944E7EB /* Pods-Pings.release.xcconfig */;
+			baseConfigurationReference = 6A15C6B598269F835D5AAD93 /* Pods-Pings.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1113,6 +1217,7 @@
 		};
 		4ABF42271BD6942000E836DC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF9743B69014525AE85C2C3F /* Pods-PingsTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = PingsTests/Info.plist;
@@ -1125,6 +1230,7 @@
 		};
 		4ABF42281BD6942000E836DC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F583F4C69CDBB0571B418E7 /* Pods-PingsTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = PingsTests/Info.plist;
@@ -1137,6 +1243,7 @@
 		};
 		4ABF422A1BD6942000E836DC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FEAA741F8E9B3248E7415B7B /* Pods-PingsUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = PingsUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1149,6 +1256,7 @@
 		};
 		4ABF422B1BD6942000E836DC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F58B792354426A6D179CD3F /* Pods-PingsUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = PingsUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

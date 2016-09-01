@@ -223,12 +223,12 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
         print("lastUnPingIndex \(lastUnPingedIndex)  unPingServerCount \(unPingedServerCount)")
         
         timeoutTimer?.invalidate()
-        timeoutTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "checkIfTimeOut:", userInfo: host, repeats: false)
+        timeoutTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(PingsTableViewController.checkIfTimeOut(_:)), userInfo: host, repeats: false)
     }
     
     func checkIfTimeOut(sender: AnyObject?) {
         pinger!.stopPinging()
-        unPingedServerCount--
+        unPingedServerCount -= 1
         
         let timer = sender as! NSTimer
         let host = timer.userInfo as! Host
@@ -305,7 +305,7 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
             fastServer = host
         }
         
-        unPingedServerCount--
+        unPingedServerCount -= 1
         
         if unPingedServerCount > 0 {
             beginPingServer()
@@ -325,7 +325,7 @@ class PingsTableViewController: UITableViewController, CDZPingerDelegate, MBProg
         let host = serverLists[lastUnPingedIndex]
         host.averageTime = "\(error.localizedDescription)"
         
-        unPingedServerCount--
+        unPingedServerCount -= 1
         if unPingedServerCount > 0 {
             beginPingServer()
         } else {

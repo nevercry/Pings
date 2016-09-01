@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iOu-3i-QQT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iOu-3i-QQT">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
@@ -325,15 +325,28 @@
                                     <segue destination="KRq-AG-lP4" kind="embed" id="ns1-JJ-Lem"/>
                                 </connections>
                             </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uqj-mh-l8Z" customClass="GADBannerView">
+                                <rect key="frame" x="140" y="550" width="320" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="fda-cd-kpJ"/>
+                                    <constraint firstAttribute="width" constant="320" id="zOd-me-RGX"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="QCd-AD-182" firstAttribute="top" secondItem="Uqj-mh-l8Z" secondAttribute="bottom" id="7We-es-Wme"/>
                             <constraint firstAttribute="bottom" secondItem="3Bh-lv-pYV" secondAttribute="bottom" id="A0U-fW-JiJ"/>
                             <constraint firstItem="3Bh-lv-pYV" firstAttribute="leading" secondItem="Xis-Ti-7io" secondAttribute="leading" id="AN3-fV-QZV"/>
+                            <constraint firstItem="Uqj-mh-l8Z" firstAttribute="centerX" secondItem="Xis-Ti-7io" secondAttribute="centerX" id="KCM-tR-aPY"/>
                             <constraint firstItem="3Bh-lv-pYV" firstAttribute="top" secondItem="Xis-Ti-7io" secondAttribute="top" id="ZCA-6l-Yib"/>
                             <constraint firstAttribute="trailing" secondItem="3Bh-lv-pYV" secondAttribute="trailing" id="fdu-0f-Ekd"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bannerView" destination="Uqj-mh-l8Z" id="0tV-kJ-GlT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3cX-m2-TTK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -449,8 +462,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="59G-ky-zTj"/>
         <segue reference="laP-qU-Hzh"/>
-        <segue reference="9et-D0-KHZ"/>
+        <segue reference="d80-Rq-kyx"/>
+        <segue reference="O5A-NA-cYF"/>
     </inferredMetricsTieBreakers>
 </document>
