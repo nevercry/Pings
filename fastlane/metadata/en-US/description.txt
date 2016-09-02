@@ -1,0 +1,5 @@
+Pings: Ping lots of servers with one tap. It will display the fastest ping result.
+
+Support apple Watch, 3D Touch and TodayWidget.
+
+Config files can easily import to Pings through iTunes or AirDrop. Write your servers domain and  quote their nickName using double quotation mark each line, the config file name with "conf" extension, such as "yourServersList.conf", then AirDrop to your iPhone, Open it with Pings or your can import it through iTunes File Sharing.
